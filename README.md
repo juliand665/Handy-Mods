@@ -1,6 +1,6 @@
 # Handy-Mods
 
-
+A small mod that aims to extract handy features from giant mods so you can shave down your mod list.
 
 Current features:
 
@@ -13,7 +13,7 @@ Planned features:
 
 # TODO
 
-[ ] configurable blacklist (incl. box itself, bedrock)
-[ ] prevent sound still playing even if not wrappable
-[ ] allow wrapping block currently standing on
+[ ] configurable blacklist (incl. box itself, bedrock)  
+[ ] prevent sound still playing even if not wrappable  
+[ ] allow wrapping block currently standing on  
 [ ] maybe check that the block can be placed before unwrapping (makes for ugly code though)

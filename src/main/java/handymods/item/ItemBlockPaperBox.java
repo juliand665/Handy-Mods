@@ -22,14 +22,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 public class ItemBlockPaperBox extends ItemBlock {
 	static final String BLOCK_DATA_KEY = "blockData";
 	
 	public ItemBlockPaperBox() {
 		super(HandyModsBlocks.paperBox);
-		MinecraftForge.EVENT_BUS.register(this);
 		
 		setRegistryName(block.getRegistryName());
 		setUnlocalizedName(block.getUnlocalizedName());
@@ -42,7 +43,12 @@ public class ItemBlockPaperBox extends ItemBlock {
 		String contentsDesc;
 		if (hasBlockData(itemStack)) {
 			BlockData blockData = getBlockData(itemStack);
-			contentsDesc = I18n.format("tooltip.paper_box.contains_block", blockData.block.getLocalizedName());
+			if (flag.isAdvanced()) {
+				String name = Block.REGISTRY.getNameForObject(blockData.block).toString();
+				contentsDesc = I18n.format("tooltip.paper_box.contains_block.advanced", blockData.block.getLocalizedName(), name);
+			} else {
+				contentsDesc = I18n.format("tooltip.paper_box.contains_block", blockData.block.getLocalizedName());
+			}
 		} else {
 			contentsDesc = I18n.format("tooltip.paper_box.empty");
 		}

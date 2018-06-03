@@ -10,11 +10,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod(modid = HandyMods.MOD_ID, name = HandyMods.NAME, version = HandyMods.VERSION)
+@Mod(modid = HandyMods.MOD_ID, name = "Handy Mods", version = "1.0", useMetadata = true)
 public class HandyMods {
 	public static final String MOD_ID = "handymods";
-	public static final String NAME = "Handy Mods";
-	public static final String VERSION = "1.0";
 	
 	private static Logger logger;
 	

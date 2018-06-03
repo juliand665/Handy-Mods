@@ -20,7 +20,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
-public class BlockPaperBox extends Block {
+public class BlockPaperBox extends BlockWithTileEntity<TileEntityPaperBox> {
 	public BlockPaperBox() {
 		super(Material.CLOTH);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -28,11 +28,6 @@ public class BlockPaperBox extends Block {
 		setHardness(0.5F);
 		setResistance(1F);
 		setCreativeTab(CreativeTabHandyMods.instance);
-	}
-	
-	@Override
-	public boolean hasTileEntity(IBlockState state) {
-		return true;
 	}
 	
 	@Override
@@ -48,7 +43,7 @@ public class BlockPaperBox extends Block {
 		if (world.isRemote)
 			return true;
 		
-		TileEntityPaperBox tileEntity = (TileEntityPaperBox) world.getTileEntity(pos);
+		TileEntityPaperBox tileEntity = tileEntity(world, pos);
 		BlockData blockData = tileEntity.storedBlock;
 		
 		IBlockState newState = blockData.block.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, blockData.metadata, player, hand);
@@ -77,7 +72,7 @@ public class BlockPaperBox extends Block {
 	}
 	
 	private ItemStack getDroppedItem(IBlockAccess world, BlockPos pos) {
-		TileEntityPaperBox tileEntity = (TileEntityPaperBox) world.getTileEntity(pos);
+		TileEntityPaperBox tileEntity = tileEntity(world, pos);
 		ItemStack itemStack = new ItemStack(this);
 		ItemBlockPaperBox.setBlockData(itemStack, tileEntity.storedBlock);
 		return itemStack;

@@ -4,6 +4,7 @@ import handymods.CreativeTabHandyMods;
 import handymods.item.ItemBlockPaperBox;
 import handymods.tile.TileEntityPaperBox;
 import handymods.tile.TileEntityPaperBox.BlockData;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,10 +23,10 @@ import net.minecraftforge.common.MinecraftForge;
 public class BlockPaperBox extends BlockWithTileEntity<TileEntityPaperBox> {
 	public BlockPaperBox() {
 		super(Material.CLOTH);
-		MinecraftForge.EVENT_BUS.register(this);
 		
-		setHardness(0.5F);
+		setHardness(0.2F);
 		setResistance(1F);
+		setSoundType(SoundType.WOOD);
 		setCreativeTab(CreativeTabHandyMods.instance);
 	}
 	

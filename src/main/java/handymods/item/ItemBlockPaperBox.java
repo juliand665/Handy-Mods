@@ -82,6 +82,12 @@ public class ItemBlockPaperBox extends ItemBlock {
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if (world.isRemote)
 			return EnumActionResult.PASS;
+
+		ItemStack itemStack = player.getHeldItem(hand);
+		
+		// already contains block
+		if (hasBlockData(itemStack))
+			return EnumActionResult.PASS;
 		
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
@@ -90,12 +96,6 @@ public class ItemBlockPaperBox extends ItemBlock {
 		// only pick up valid blocks
 		// FIXME prevent recursive boxing
 		if (world.isAirBlock(pos) || state.getBlockHardness(world, pos) < 0)
-			return EnumActionResult.PASS;
-		
-		ItemStack itemStack = player.getHeldItem(hand);
-		
-		// already contains block
-		if (hasBlockData(itemStack))
 			return EnumActionResult.PASS;
 		
 		Optional<NBTTagCompound> tileEntityNBT = Optional.ofNullable(world.getTileEntity(pos))
@@ -122,6 +122,7 @@ public class ItemBlockPaperBox extends ItemBlock {
 	
 	@SubscribeEvent
 	public static void onEntitySpawn(EntityJoinWorldEvent event) {
+		// this is kinda hacky, but it's the cleanest way i can think of
 		if (isCancellingItemDrops && event.getEntity() instanceof EntityItem) {
 			// If the block we're wrapping drops something on being destroyed, we have to cancel it to avoid duping.
 			event.setCanceled(true);

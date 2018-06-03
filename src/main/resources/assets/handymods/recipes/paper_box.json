@@ -1,0 +1,19 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"#": {
+			"item": "minecraft:paper"
+		},
+		"0": {
+			"item": "minecraft:chest"
+		}
+	},
+	"pattern": [
+		" # ",
+		"#0#",
+		" # "
+	],
+	"result": {
+		"item": "handymods:paper_box"
+	}
+}

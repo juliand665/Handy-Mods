@@ -4,7 +4,6 @@ import handymods.CreativeTabHandyMods;
 import handymods.item.ItemBlockPaperBox;
 import handymods.tile.TileEntityPaperBox;
 import handymods.tile.TileEntityPaperBox.BlockData;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

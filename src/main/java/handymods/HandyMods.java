@@ -24,7 +24,7 @@ public class HandyMods {
 	public void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
 	}
-
+	
 	@EventHandler
 	public void init(@SuppressWarnings("unused") FMLInitializationEvent event) {
 		addEntities();

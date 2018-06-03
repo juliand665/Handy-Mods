@@ -13,7 +13,7 @@ import net.minecraftforge.registries.IForgeRegistry;
 @Mod.EventBusSubscriber
 public class HandyModsItems {
 	public static ItemBlockPaperBox paperBox = new ItemBlockPaperBox();
-
+	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();

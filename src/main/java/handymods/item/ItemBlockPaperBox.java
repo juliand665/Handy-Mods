@@ -8,13 +8,13 @@ import handymods.tile.TileEntityPaperBox;
 import handymods.tile.TileEntityPaperBox.BlockData;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -39,12 +39,12 @@ public class ItemBlockPaperBox extends ItemBlock {
 	public void addInformation(ItemStack itemStack, World world, List<String> tooltip, ITooltipFlag flag) {
 		super.addInformation(itemStack, world, tooltip, flag);
 		
-		String contentsDesc; // TODO localize
+		String contentsDesc;
 		if (hasBlockData(itemStack)) {
 			BlockData blockData = getBlockData(itemStack);
-			contentsDesc = "Contains " + blockData.block.getLocalizedName();
+			contentsDesc = I18n.format("tooltip.paper_box.contains_block", blockData.block.getLocalizedName());
 		} else {
-			contentsDesc = "Empty";
+			contentsDesc = I18n.format("tooltip.paper_box.empty");
 		}
 		
 		tooltip.add(contentsDesc);

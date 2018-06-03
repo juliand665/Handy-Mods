@@ -4,11 +4,9 @@ import handymods.CreativeTabHandyMods;
 import handymods.item.ItemBlockPaperBox;
 import handymods.tile.TileEntityPaperBox;
 import handymods.tile.TileEntityPaperBox.BlockData;
-import mezz.jei.plugins.vanilla.ingredients.ItemStackHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
@@ -21,7 +19,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.items.ItemHandlerHelper;
 
 public class BlockPaperBox extends Block {
 	public BlockPaperBox() {

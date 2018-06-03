@@ -65,7 +65,7 @@ public class TileEntityPaperBox extends ModTileEntity {
 			String name = container.getString(NBT_KEY_BLOCK_NAME);
 			block = Block.REGISTRY.getObject(new ResourceLocation(name)); // returns air if the block doesn't exist
 			
-			metadata = container.getInteger("metadata");
+			metadata = container.getInteger(NBT_KEY_METADATA);
 			
 			tileEntityNBT = container.hasKey(NBT_KEY_TILE_ENTITY_NBT)
 					? Optional.of(container.getCompoundTag(NBT_KEY_TILE_ENTITY_NBT))

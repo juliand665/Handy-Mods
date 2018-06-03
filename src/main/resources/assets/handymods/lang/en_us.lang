@@ -3,3 +3,7 @@ itemGroup.tabHandyMods=Handy Mods
 
 // Blocks
 tile.paper_box.name=Paper Box
+
+// Miscellaneous
+tooltip.paper_box.contains_block=Contains %s
+tooltip.paper_box.empty=Empty

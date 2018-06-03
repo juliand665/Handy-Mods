@@ -1,13 +1,15 @@
 # Handy-Mods
 
+
+
 Current features:
 
-* Paper Box (heavily inspired by Mekanism's Cardboard Box)
+* Paper Box: a nice way to move blocks around while keeping their contents intact (heavily inspired by Mekanism cardboard box)
 
 Planned features:
 
-* Chesty Crafting Table (crafting table that keeps its contents after you exit the gui
-* Item Holder (single-item inventory for displaying stuff or automation)
+* Chesty Crafting Table: crafting table that keeps its contents after you exit the gui (inspired by Tinkers Construct crafting station)
+* Item Holder: single-item inventory for displaying stuff or automation (similar to one use-case of Tinkers Construct drying rack)
 
 # TODO
 

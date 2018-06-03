@@ -75,7 +75,7 @@ public class ItemBlockPaperBox extends ItemBlock {
 	
 	// placing around block
 	
-	private boolean isCancellingItemDrops = false;
+	private static boolean isCancellingItemDrops = false;
 	
 	// onItemUseFirst is necessary to avoid opening the block's GUI instead
 	@Override
@@ -121,7 +121,7 @@ public class ItemBlockPaperBox extends ItemBlock {
 	}
 	
 	@SubscribeEvent
-	public void onEntitySpawn(EntityJoinWorldEvent event) {
+	public static void onEntitySpawn(EntityJoinWorldEvent event) {
 		if (isCancellingItemDrops && event.getEntity() instanceof EntityItem) {
 			// If the block we're wrapping drops something on being destroyed, we have to cancel it to avoid duping.
 			event.setCanceled(true);

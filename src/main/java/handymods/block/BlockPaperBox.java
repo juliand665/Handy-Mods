@@ -3,7 +3,7 @@ package handymods.block;
 import handymods.CreativeTabHandyMods;
 import handymods.item.ItemBlockPaperBox;
 import handymods.tile.TileEntityPaperBox;
-import net.minecraft.block.BlockContainer;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,7 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
-public class BlockPaperBox extends BlockContainer {
+public class BlockPaperBox extends Block {
 	public BlockPaperBox() {
 		super(Material.CLOTH);
 		MinecraftForge.EVENT_BUS.register(this);
@@ -27,7 +27,12 @@ public class BlockPaperBox extends BlockContainer {
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+	
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
 		return new TileEntityPaperBox();
 	}
 	

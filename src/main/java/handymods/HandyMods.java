@@ -18,6 +18,10 @@ public class HandyMods {
 	
 	private static Logger logger;
 	
+	public static ResourceLocation resourceLocation(String path) {
+		return new ResourceLocation(MOD_ID, path);
+	}
+	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
@@ -30,9 +34,5 @@ public class HandyMods {
 	
 	private void addEntities() {
 		GameRegistry.registerTileEntity(TileEntityPaperBox.class, resourceLocation("paper_box"));
-	}
-	
-	public static ResourceLocation resourceLocation(String path) {
-		return new ResourceLocation(MOD_ID, path);
 	}
 }

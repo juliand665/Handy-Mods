@@ -16,14 +16,14 @@ public abstract class ModTileEntity extends TileEntity implements INBTCodable {
 	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-		NBTTagCompound container = super.writeToNBT(compound);
+		final NBTTagCompound container = super.writeToNBT(compound);
 		writeTo(container);
 		return container;
 	}
 	
 	@Override
 	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound container = super.getUpdateTag();
+		final NBTTagCompound container = super.getUpdateTag();
 		writeTo(container);
 		return container;
 	}
@@ -37,7 +37,7 @@ public abstract class ModTileEntity extends TileEntity implements INBTCodable {
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
 		assert super.getUpdatePacket() == null;
-		NBTTagCompound container = new NBTTagCompound();
+		final NBTTagCompound container = new NBTTagCompound();
 		writeTo(container);
 		return new SPacketUpdateTileEntity(pos, 0, container);
 	}

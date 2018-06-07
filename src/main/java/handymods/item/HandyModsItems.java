@@ -16,7 +16,7 @@ public class HandyModsItems {
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
-		IForgeRegistry<Item> registry = event.getRegistry();
+		final IForgeRegistry<Item> registry = event.getRegistry();
 		
 		registry.register(enderBox);
 	}

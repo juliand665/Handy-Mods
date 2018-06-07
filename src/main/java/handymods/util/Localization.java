@@ -7,7 +7,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 public class Localization {
 	/** e.g. keyString("tooltip", enderBox, "empty") -> "tooltip.handymods.ender_box.empty") */
 	public static String keyString(String domain, IForgeRegistryEntry entry, String path) {
-		ResourceLocation location = entry.getRegistryName();
+		final ResourceLocation location = entry.getRegistryName();
 		return domain + "." + location.getResourceDomain() + "." + location.getResourcePath() + "." + path;
 	}
 	

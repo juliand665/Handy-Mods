@@ -43,10 +43,10 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> {
 		if (world.isRemote)
 			return true;
 		
-		TileEntityEnderBox tileEntity = tileEntity(world, pos);
-		BlockData blockData = tileEntity.storedBlock;
+		final TileEntityEnderBox tileEntity = tileEntity(world, pos);
+		final BlockData blockData = tileEntity.storedBlock;
 		
-		IBlockState newState = blockData.block.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, blockData.metadata, player, hand);
+		final IBlockState newState = blockData.block.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, blockData.metadata, player, hand);
 		world.setBlockState(pos, newState, 0b11);
 		
 		blockData.updatePosition(pos);
@@ -72,8 +72,8 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> {
 	}
 	
 	private ItemStack getDroppedItem(IBlockAccess world, BlockPos pos) {
-		TileEntityEnderBox tileEntity = tileEntity(world, pos);
-		ItemStack itemStack = new ItemStack(this);
+		final TileEntityEnderBox tileEntity = tileEntity(world, pos);
+		final ItemStack itemStack = new ItemStack(this);
 		ItemBlockEnderBox.setBlockData(itemStack, tileEntity.storedBlock);
 		return itemStack;
 	}

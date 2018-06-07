@@ -15,7 +15,7 @@ public class HandyModsBlocks {
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
-		IForgeRegistry<Block> registry = event.getRegistry();
+		final IForgeRegistry<Block> registry = event.getRegistry();
 		
 		registry.register(block(enderBox, "ender_box"));
 		//registry.register(block(chestyCraftingTable, "ChestyCraftingTable"));

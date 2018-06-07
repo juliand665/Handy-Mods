@@ -27,7 +27,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class ItemBlockEnderBox extends ItemBlock {
-	static final String BLOCK_DATA_KEY = "blockData";
+	static final String NBT_KEY_BLOCK_DATA = "blockData";
 	
 	public ItemBlockEnderBox() {
 		super(HandyModsBlocks.enderBox);
@@ -40,14 +40,14 @@ public class ItemBlockEnderBox extends ItemBlock {
 	public void addInformation(ItemStack itemStack, World world, List<String> tooltip, ITooltipFlag flag) {
 		super.addInformation(itemStack, world, tooltip, flag);
 		
-		String contentsDesc;
+		final String contentsDesc;
 		if (hasBlockData(itemStack)) {
-			BlockData blockData = getBlockData(itemStack);
+			final BlockData blockData = getBlockData(itemStack);
+			final Block block = blockData.block;
 			if (flag.isAdvanced()) {
-				String name = Block.REGISTRY.getNameForObject(blockData.block).toString();
-				contentsDesc = localized("tooltip", this, "contains_block.advanced", blockData.block.getLocalizedName(), name);
+				contentsDesc = localized("tooltip", this, "contains_block.advanced", block.getLocalizedName(), block.getRegistryName());
 			} else {
-				contentsDesc = localized("tooltip", this, "contains_block", blockData.block.getLocalizedName());
+				contentsDesc = localized("tooltip", this, "contains_block", block.getLocalizedName());
 			}
 		} else {
 			contentsDesc = localized("tooltip", this, "empty");
@@ -64,7 +64,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 		if (!hasBlockData(itemStack)) // disallow placing empty boxes
 			return false;
 		
-		boolean shouldPlace = super.placeBlockAt(itemStack, player, world, pos, side, hitX, hitY, hitZ, newState);
+		final boolean shouldPlace = super.placeBlockAt(itemStack, player, world, pos, side, hitX, hitY, hitZ, newState);
 		
 		if (shouldPlace) {
 			TileEntityEnderBox tileEntity = (TileEntityEnderBox) world.getTileEntity(pos);
@@ -84,22 +84,23 @@ public class ItemBlockEnderBox extends ItemBlock {
 		if (world.isRemote)
 			return EnumActionResult.PASS;
 
-		ItemStack itemStack = player.getHeldItem(hand);
+		final ItemStack itemStack = player.getHeldItem(hand);
 		
 		// already contains block
 		if (hasBlockData(itemStack))
 			return EnumActionResult.PASS;
 		
-		IBlockState state = world.getBlockState(pos);
-		Block block = state.getBlock();
-		int metadata = block.getMetaFromState(state);
+		final IBlockState state = world.getBlockState(pos);
+		final Block block = state.getBlock();
+		final int metadata = block.getMetaFromState(state);
 		
 		// only pick up valid blocks
 		// FIXME prevent recursive boxing
 		if (world.isAirBlock(pos) || state.getBlockHardness(world, pos) < 0)
 			return EnumActionResult.PASS;
 		
-		Optional<NBTTagCompound> tileEntityNBT = Optional.ofNullable(world.getTileEntity(pos))
+		final Optional<NBTTagCompound> tileEntityNBT = Optional
+				.ofNullable(world.getTileEntity(pos))
 				.map(prev -> prev.writeToNBT(new NBTTagCompound()));
 		
 		if (!player.capabilities.isCreativeMode) {
@@ -109,13 +110,13 @@ public class ItemBlockEnderBox extends ItemBlock {
 		// TODO this might cause duping glitches with some multiblock machines
 		// first, remove the block without causing updates, voiding any ensuing drops
 		isCancellingItemDrops = true;
-		IBlockState newState = HandyModsBlocks.enderBox.getDefaultState();
+		final IBlockState newState = HandyModsBlocks.enderBox.getDefaultState();
 		world.setBlockState(pos, newState, 0b00010);
 		isCancellingItemDrops = false;
 		// now, cause the update we prevented earlier, to make sure everything is in a nice state
 		world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, newState, 0b11101);
 		
-		TileEntityEnderBox newTileEntity = (TileEntityEnderBox) world.getTileEntity(pos);
+		final TileEntityEnderBox newTileEntity = (TileEntityEnderBox) world.getTileEntity(pos);
 		newTileEntity.storedBlock = new BlockData(block, metadata, tileEntityNBT);
 		
 		return EnumActionResult.SUCCESS;
@@ -140,16 +141,16 @@ public class ItemBlockEnderBox extends ItemBlock {
 	}
 	
 	public static boolean hasBlockData(ItemStack itemStack) {
-		return tagOf(itemStack).hasKey(BLOCK_DATA_KEY);
+		return tagOf(itemStack).hasKey(NBT_KEY_BLOCK_DATA);
 	}
 	
 	public static BlockData getBlockData(ItemStack itemStack) {
-		NBTTagCompound tag = tagOf(itemStack).getCompoundTag(BLOCK_DATA_KEY);
+		final NBTTagCompound tag = tagOf(itemStack).getCompoundTag(NBT_KEY_BLOCK_DATA);
 		return new BlockData(tag);
 	}
 	
 	public static void setBlockData(ItemStack itemStack, BlockData blockData) {
-		NBTTagCompound tag = blockData.getNBT();
-		tagOf(itemStack).setTag(BLOCK_DATA_KEY, tag);
+		final NBTTagCompound tag = blockData.getNBT();
+		tagOf(itemStack).setTag(NBT_KEY_BLOCK_DATA, tag);
 	}
 }

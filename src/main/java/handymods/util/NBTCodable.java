@@ -10,7 +10,7 @@ public abstract class NBTCodable implements INBTCodable {
 	}
 	
 	public NBTTagCompound getNBT() {
-		NBTTagCompound container = new NBTTagCompound();
+		final NBTTagCompound container = new NBTTagCompound();
 		writeTo(container);
 		return container;
 	}

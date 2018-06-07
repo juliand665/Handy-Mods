@@ -74,8 +74,7 @@ public class TileEntityEnderBox extends ModTileEntity {
 		
 		@Override
 		public void writeTo(NBTTagCompound container) {
-			String name = Block.REGISTRY.getNameForObject(block).toString();
-			container.setString(NBT_KEY_BLOCK_NAME, name);
+			container.setString(NBT_KEY_BLOCK_NAME, block.getRegistryName().toString());
 			
 			container.setInteger(NBT_KEY_METADATA, metadata);
 			

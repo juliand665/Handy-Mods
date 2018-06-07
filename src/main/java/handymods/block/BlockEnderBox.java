@@ -1,9 +1,9 @@
 package handymods.block;
 
 import handymods.CreativeTabHandyMods;
-import handymods.item.ItemBlockPaperBox;
-import handymods.tile.TileEntityPaperBox;
-import handymods.tile.TileEntityPaperBox.BlockData;
+import handymods.item.ItemBlockEnderBox;
+import handymods.tile.TileEntityEnderBox;
+import handymods.tile.TileEntityEnderBox.BlockData;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -20,19 +20,19 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
-public class BlockPaperBox extends BlockWithTileEntity<TileEntityPaperBox> {
-	public BlockPaperBox() {
-		super(Material.CLOTH);
+public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> {
+	public BlockEnderBox() {
+		super(Material.CLOTH); // harvestable by hand; mostly for convenience
 		
 		setHardness(0.2F);
 		setResistance(1F);
-		setSoundType(SoundType.WOOD);
+		setSoundType(SoundType.STONE);
 		setCreativeTab(CreativeTabHandyMods.instance);
 	}
 	
 	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
-		return new TileEntityPaperBox();
+	public TileEntityEnderBox newTileEntity(IBlockAccess world, IBlockState state) {
+		return new TileEntityEnderBox();
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class BlockPaperBox extends BlockWithTileEntity<TileEntityPaperBox> {
 		if (world.isRemote)
 			return true;
 		
-		TileEntityPaperBox tileEntity = tileEntity(world, pos);
+		TileEntityEnderBox tileEntity = tileEntity(world, pos);
 		BlockData blockData = tileEntity.storedBlock;
 		
 		IBlockState newState = blockData.block.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, blockData.metadata, player, hand);
@@ -60,7 +60,7 @@ public class BlockPaperBox extends BlockWithTileEntity<TileEntityPaperBox> {
 					pos.getX() + hitX,
 					pos.getY() + hitY,
 					pos.getZ() + hitZ,
-					new ItemStack(HandyModsBlocks.paperBox));
+					new ItemStack(HandyModsBlocks.enderBox));
 		}
 		
 		return true;
@@ -72,9 +72,9 @@ public class BlockPaperBox extends BlockWithTileEntity<TileEntityPaperBox> {
 	}
 	
 	private ItemStack getDroppedItem(IBlockAccess world, BlockPos pos) {
-		TileEntityPaperBox tileEntity = tileEntity(world, pos);
+		TileEntityEnderBox tileEntity = tileEntity(world, pos);
 		ItemStack itemStack = new ItemStack(this);
-		ItemBlockPaperBox.setBlockData(itemStack, tileEntity.storedBlock);
+		ItemBlockEnderBox.setBlockData(itemStack, tileEntity.storedBlock);
 		return itemStack;
 	}
 	

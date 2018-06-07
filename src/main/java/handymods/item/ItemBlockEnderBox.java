@@ -1,14 +1,15 @@
 package handymods.item;
 
+import static handymods.util.Localization.localized;
+
 import java.util.List;
 import java.util.Optional;
 
 import handymods.block.HandyModsBlocks;
-import handymods.tile.TileEntityPaperBox;
-import handymods.tile.TileEntityPaperBox.BlockData;
+import handymods.tile.TileEntityEnderBox;
+import handymods.tile.TileEntityEnderBox.BlockData;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,11 +26,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
-public class ItemBlockPaperBox extends ItemBlock {
+public class ItemBlockEnderBox extends ItemBlock {
 	static final String BLOCK_DATA_KEY = "blockData";
 	
-	public ItemBlockPaperBox() {
-		super(HandyModsBlocks.paperBox);
+	public ItemBlockEnderBox() {
+		super(HandyModsBlocks.enderBox);
 		
 		setRegistryName(block.getRegistryName());
 		setUnlocalizedName(block.getUnlocalizedName());
@@ -44,12 +45,12 @@ public class ItemBlockPaperBox extends ItemBlock {
 			BlockData blockData = getBlockData(itemStack);
 			if (flag.isAdvanced()) {
 				String name = Block.REGISTRY.getNameForObject(blockData.block).toString();
-				contentsDesc = I18n.format("tooltip.paper_box.contains_block.advanced", blockData.block.getLocalizedName(), name);
+				contentsDesc = localized("tooltip", this, "contains_block.advanced", blockData.block.getLocalizedName(), name);
 			} else {
-				contentsDesc = I18n.format("tooltip.paper_box.contains_block", blockData.block.getLocalizedName());
+				contentsDesc = localized("tooltip", this, "contains_block", blockData.block.getLocalizedName());
 			}
 		} else {
-			contentsDesc = I18n.format("tooltip.paper_box.empty");
+			contentsDesc = localized("tooltip", this, "empty");
 		}
 		
 		tooltip.add(contentsDesc);
@@ -66,7 +67,7 @@ public class ItemBlockPaperBox extends ItemBlock {
 		boolean shouldPlace = super.placeBlockAt(itemStack, player, world, pos, side, hitX, hitY, hitZ, newState);
 		
 		if (shouldPlace) {
-			TileEntityPaperBox tileEntity = (TileEntityPaperBox) world.getTileEntity(pos);
+			TileEntityEnderBox tileEntity = (TileEntityEnderBox) world.getTileEntity(pos);
 			tileEntity.storedBlock = getBlockData(itemStack);
 		}
 		
@@ -108,13 +109,13 @@ public class ItemBlockPaperBox extends ItemBlock {
 		// TODO this might cause duping glitches with some multiblock machines
 		// first, remove the block without causing updates, voiding any ensuing drops
 		isCancellingItemDrops = true;
-		IBlockState newState = HandyModsBlocks.paperBox.getDefaultState();
+		IBlockState newState = HandyModsBlocks.enderBox.getDefaultState();
 		world.setBlockState(pos, newState, 0b00010);
 		isCancellingItemDrops = false;
 		// now, cause the update we prevented earlier, to make sure everything is in a nice state
 		world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, newState, 0b11101);
 		
-		TileEntityPaperBox newTileEntity = (TileEntityPaperBox) world.getTileEntity(pos);
+		TileEntityEnderBox newTileEntity = (TileEntityEnderBox) world.getTileEntity(pos);
 		newTileEntity.storedBlock = new BlockData(block, metadata, tileEntityNBT);
 		
 		return EnumActionResult.SUCCESS;

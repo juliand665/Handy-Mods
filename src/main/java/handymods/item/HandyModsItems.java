@@ -12,24 +12,24 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber
 public class HandyModsItems {
-	public static ItemBlockPaperBox paperBox = new ItemBlockPaperBox();
+	public static ItemBlockEnderBox enderBox = new ItemBlockEnderBox();
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
 		IForgeRegistry<Item> registry = event.getRegistry();
 		
-		registry.register(paperBox);
+		registry.register(enderBox);
 	}
 	
 	public static Item item(Item item, String name) {
 		return item
-				.setUnlocalizedName(name)
+				.setUnlocalizedName(HandyMods.namespaced(name))
 				.setRegistryName(HandyMods.resourceLocation(name));
 	}
 	
 	@SubscribeEvent
 	public static void registerModels(@SuppressWarnings("unused") ModelRegistryEvent event) {
-		registerItemModel(HandyModsItems.paperBox);
+		registerItemModel(HandyModsItems.enderBox);
 	}
 	
 	private static void registerItemModel(Item item) {

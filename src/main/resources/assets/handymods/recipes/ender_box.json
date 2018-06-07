@@ -1,19 +1,22 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"key": {
+		"0": {
+			"item": "minecraft:ender_pearl"
+		},
 		"#": {
 			"item": "minecraft:paper"
 		},
-		"0": {
-			"item": "minecraft:chest"
+		"X": {
+			"item": "minecraft:obsidian"
 		}
 	},
 	"pattern": [
-		" # ",
+		"X#X",
 		"#0#",
-		" # "
+		"X#X"
 	],
 	"result": {
-		"item": "handymods:paper_box"
+		"item": "handymods:ender_box"
 	}
 }

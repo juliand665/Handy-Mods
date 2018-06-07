@@ -7,7 +7,9 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
+/* provides a foolproof implementation of a simple block with a tile entity */
 public abstract class BlockWithTileEntity<TE extends TileEntity> extends Block {
 	public BlockWithTileEntity(Material material) {
 		super(material);
@@ -18,11 +20,18 @@ public abstract class BlockWithTileEntity<TE extends TileEntity> extends Block {
 	}
 	
 	@Override
-	public boolean hasTileEntity(IBlockState state) {
+	public final boolean hasTileEntity(IBlockState state) {
 		return true;
 	}
 	
-	public TE tileEntity(IBlockAccess world, BlockPos pos) {
+	@Override
+	public final TileEntity createTileEntity(World world, IBlockState state) {
+		return newTileEntity(world, state);
+	}
+	
+	public abstract TE newTileEntity(IBlockAccess world, IBlockState state);
+	
+	public final TE tileEntity(IBlockAccess world, BlockPos pos) {
 		return (TE) world.getTileEntity(pos);
 	}
 }

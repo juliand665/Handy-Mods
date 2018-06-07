@@ -1,11 +1,12 @@
 package handymods.tile;
 
-import handymods.INBTCodable;
+import handymods.util.INBTCodable;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
+/** handles a bunch of NBT coding boilerplate */
 public abstract class ModTileEntity extends TileEntity implements INBTCodable {
 	@Override
 	public void readFromNBT(NBTTagCompound container) {

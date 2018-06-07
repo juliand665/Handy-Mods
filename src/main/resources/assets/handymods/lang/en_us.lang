@@ -2,9 +2,9 @@
 itemGroup.tabHandyMods=Handy Mods
 
 // Blocks
-tile.paper_box.name=Paper Box
+tile.handymods.ender_box.name=Ender Box
 
 // Miscellaneous
-tooltip.paper_box.empty=Empty
-tooltip.paper_box.contains_block=Contains %s
-tooltip.paper_box.contains_block.advanced=Contains %s (%s)
+tooltip.handymods.ender_box.empty=Empty
+tooltip.handymods.ender_box.contains_block=Contains %s
+tooltip.handymods.ender_box.contains_block.advanced=Contains %s (%s)

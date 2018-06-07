@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "handymods:blocks/paper_box"
+        "all": "handymods:blocks/ender_box"
     }
 }

@@ -13,6 +13,6 @@ public class CreativeTabHandyMods extends CreativeTabs {
 	
 	@Override
 	public ItemStack getTabIconItem() {
-		return new ItemStack(HandyModsItems.paperBox);
+		return new ItemStack(HandyModsItems.enderBox);
 	}
 }

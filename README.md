@@ -4,7 +4,7 @@ A small mod that aims to extract handy features from giant mods so you can shave
 
 ### Current features:
 
-* Paper Box: a nice way to move blocks around while keeping their contents intact (heavily inspired by Mekanism cardboard box)
+* Ender Box: a nice way to move blocks around while keeping their contents intact (heavily inspired by Mekanism cardboard box)
 
 ### Planned features:
 
@@ -17,3 +17,5 @@ A small mod that aims to extract handy features from giant mods so you can shave
 * [ ] prevent sound still playing even if target not wrappable
 * [ ] allow wrapping block currently standing on
 * [ ] maybe check that the block can be placed before unwrapping (makes for ugly code though)
+* [X] change paper box to be ender-themed (use ender pearl in recipe, ender textures, etc.)
+* [ ] The One Probe integration for everything

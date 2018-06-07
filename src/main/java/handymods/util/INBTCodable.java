@@ -1,4 +1,4 @@
-package handymods;
+package handymods.util;
 
 import net.minecraft.nbt.NBTTagCompound;
 

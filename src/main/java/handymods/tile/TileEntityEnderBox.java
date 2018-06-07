@@ -2,14 +2,14 @@ package handymods.tile;
 
 import java.util.Optional;
 
-import handymods.NBTCodable;
+import handymods.util.NBTCodable;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
-public class TileEntityPaperBox extends ModTileEntity {
+public class TileEntityEnderBox extends ModTileEntity {
 	private static final String NBT_KEY_STORED_BLOCK = "storedBlock";
 	
 	public BlockData storedBlock = new BlockData(); // boxes are never empty, but this avoids crashing if you place them using commands

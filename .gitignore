@@ -1,10 +1,12 @@
+*.jar
+
 # intellij
 
-.idea/
+/.idea/
 *.iml
 *.iws
 *.ipr
-/out
+/out/
 
 # eclipse
 
@@ -12,9 +14,6 @@
 /.metadata
 /.classpath
 /.project
-/bin/
-
-*.jar
 
 # forge
 /run/

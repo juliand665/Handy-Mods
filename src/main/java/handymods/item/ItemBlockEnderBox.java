@@ -83,7 +83,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		if (world.isRemote)
 			return EnumActionResult.PASS;
-
+		
 		final ItemStack itemStack = player.getHeldItem(hand);
 		
 		// already contains block

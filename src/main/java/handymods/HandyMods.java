@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class HandyMods {
 	public static final String MOD_ID = "handymods";
 	
-	private static Logger logger;
+	public static Logger logger;
 	
 	public static ResourceLocation resourceLocation(String path) {
 		return new ResourceLocation(MOD_ID, path);

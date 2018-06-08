@@ -1,26 +1,31 @@
 package handymods.block;
 
 import handymods.CreativeTabHandyMods;
+import handymods.compat.theoneprobe.IProbeInfoAccessor;
 import handymods.item.ItemBlockEnderBox;
 import handymods.tile.TileEntityEnderBox;
 import handymods.tile.TileEntityEnderBox.BlockData;
+import mcjty.theoneprobe.api.ElementAlignment;
+import mcjty.theoneprobe.api.IProbeHitData;
+import mcjty.theoneprobe.api.IProbeInfo;
+import mcjty.theoneprobe.api.ProbeMode;
+import mcjty.theoneprobe.apiimpl.styles.LayoutStyle;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 
-public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> {
+public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> implements IProbeInfoAccessor {
 	public BlockEnderBox() {
 		super(Material.CLOTH); // harvestable by hand; mostly for convenience
 		
@@ -46,7 +51,8 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> {
 		final TileEntityEnderBox tileEntity = tileEntity(world, pos);
 		final BlockData blockData = tileEntity.storedBlock;
 		
-		final IBlockState newState = blockData.block.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, blockData.metadata, player, hand);
+		final IBlockState newState = blockData.getStateForPlacement(world, pos, facing, new Vec3d(hitX, hitY, hitZ), player, hand);
+		//blockData.block.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, blockData.metadata, player, hand);
 		world.setBlockState(pos, newState, 0b11);
 		
 		blockData.updatePosition(pos);
@@ -91,5 +97,26 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> {
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		drops.add(droppedItem);
+	}
+	
+	@Override
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+		TileEntityEnderBox tileEntity = tileEntity(world, data.getPos());
+		BlockData storedBlock = tileEntity.storedBlock;
+		
+		// i hate getters
+		IBlockState state = storedBlock.getStateForPlacement(world, data.getPos(), data.getSideHit(), data.getHitVec(), player, player.getActiveHand());
+		ItemStack containedBlock;
+		try {
+			// try to simulate picking the block
+			containedBlock = storedBlock.block.getPickBlock(state, new RayTraceResult(data.getHitVec(), data.getSideHit(), data.getPos()), world, data.getPos(), player);
+		} catch (Exception e) { // could fail e.g. because the pick block code expects a certain tile entity
+			// fallback to simpler means
+			containedBlock = storedBlock.getPickBlockFallback(state);
+		}
+		
+		probeInfo.horizontal(new LayoutStyle().alignment(ElementAlignment.ALIGN_CENTER))
+				.item(containedBlock)
+				.itemLabel(containedBlock);
 	}
 }

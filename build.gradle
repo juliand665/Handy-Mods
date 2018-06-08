@@ -38,7 +38,7 @@ repositories {
     }
     
     maven {
-        url "http://tehnut.info/maven" // waila/hwyla
+        url "http://maven.tterrag.com/" // the one probe
     }
 }
 
@@ -64,8 +64,8 @@ dependencies {
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
     
-    deobfCompile "mcp.mobius.waila:Hwyla:1.8.25-B40_1.12"
     deobfCompile "mezz.jei:jei_1.12.2:4.9.1.169"
+    deobfCompile "mcjty.theoneprobe:TheOneProbe-1.12:1.12-1.4.23-16"
 }
 
 processResources {

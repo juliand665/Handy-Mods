@@ -59,8 +59,8 @@ public class TileEntityEnderBox extends ModTileEntity {
 		
 		@Override
 		public void readFrom(NBTTagCompound container) {
-			String name = container.getString(NBT_KEY_BLOCK_NAME);
-			Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name));
+			final String name = container.getString(NBT_KEY_BLOCK_NAME);
+			final Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(name));
 			if (block != null) {
 				this.block = block;
 			} else {
@@ -89,7 +89,7 @@ public class TileEntityEnderBox extends ModTileEntity {
 			if (!tileEntityNBT.isPresent())
 				return;
 			
-			NBTTagCompound container = tileEntityNBT.get();
+			final NBTTagCompound container = tileEntityNBT.get();
 			// this is kinda hacky, but there's no other option
 			container.setInteger("x", position.getX());
 			container.setInteger("y", position.getY());

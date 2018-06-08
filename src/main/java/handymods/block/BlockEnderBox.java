@@ -101,11 +101,11 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 	
 	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
-		TileEntityEnderBox tileEntity = tileEntity(world, data.getPos());
-		BlockData storedBlock = tileEntity.storedBlock;
+		final TileEntityEnderBox tileEntity = tileEntity(world, data.getPos());
+		final BlockData storedBlock = tileEntity.storedBlock;
 		
 		// i hate getters
-		IBlockState state = storedBlock.getStateForPlacement(world, data.getPos(), data.getSideHit(), data.getHitVec(), player, player.getActiveHand());
+		final IBlockState state = storedBlock.getStateForPlacement(world, data.getPos(), data.getSideHit(), data.getHitVec(), player, player.getActiveHand());
 		ItemStack containedBlock;
 		try {
 			// try to simulate picking the block

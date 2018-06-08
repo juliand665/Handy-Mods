@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod(modid = HandyMods.MOD_ID, useMetadata = true)
+@Mod(modid = HandyMods.MOD_ID, useMetadata = true, dependencies = "after:theoneprobe")
 public class HandyMods {
 	public static final String MOD_ID = "handymods";
 	

@@ -1,9 +1,18 @@
+# intellij
+
+.idea/
+*.iml
+*.iws
+*.ipr
+/out
+
+# eclipse
+
 /eclipse/
 /.metadata
 /.classpath
 /.project
-/eclipse
-/bin
+/bin/
 
 *.jar
 

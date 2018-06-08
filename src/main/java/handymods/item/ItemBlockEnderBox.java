@@ -1,14 +1,10 @@
 package handymods.item;
 
-import static handymods.util.Localization.localized;
-
-import java.util.List;
-import java.util.Optional;
-
 import handymods.block.HandyModsBlocks;
 import handymods.tile.TileEntityEnderBox;
 import handymods.tile.TileEntityEnderBox.BlockData;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
@@ -19,11 +15,17 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.util.List;
+import java.util.Optional;
+
+import static handymods.util.Localization.localized;
 
 @Mod.EventBusSubscriber
 public class ItemBlockEnderBox extends ItemBlock {
@@ -55,7 +57,16 @@ public class ItemBlockEnderBox extends ItemBlock {
 		
 		tooltip.add(contentsDesc);
 	}
-	
+
+	@Override
+	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+		if (hasBlockData(stack)) {
+			return super.canPlaceBlockOnSide(worldIn, pos, side, player, stack);
+		} else {
+			return true; // TODO blacklist
+		}
+	}
+
 	@Override
 	public boolean placeBlockAt(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState) {
 		if (world.isRemote)
@@ -81,19 +92,23 @@ public class ItemBlockEnderBox extends ItemBlock {
 	// onItemUseFirst is necessary to avoid opening the block's GUI instead
 	@Override
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
-		if (world.isRemote)
-			return EnumActionResult.PASS;
-		
 		final ItemStack itemStack = player.getHeldItem(hand);
-		
+
 		// already contains block
 		if (hasBlockData(itemStack))
 			return EnumActionResult.PASS;
-		
+
 		final IBlockState state = world.getBlockState(pos);
 		final Block block = state.getBlock();
 		final int metadata = block.getMetaFromState(state);
-		
+
+		if (world.isRemote) {
+			// just assume it worked and play the sound
+			SoundType soundtype = this.block.getSoundType(null, null, null, null);
+			world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+			return EnumActionResult.SUCCESS;
+		}
+
 		// only pick up valid blocks
 		// FIXME prevent recursive boxing
 		if (world.isAirBlock(pos) || state.getBlockHardness(world, pos) < 0)

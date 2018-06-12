@@ -3,8 +3,8 @@ package handymods.item;
 import handymods.block.HandyModsBlocks;
 import handymods.tile.TileEntityEnderBox;
 import handymods.tile.TileEntityEnderBox.BlockData;
+import handymods.util.SoundHelpers;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.EntityItem;
@@ -15,7 +15,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -34,9 +33,6 @@ public class ItemBlockEnderBox extends ItemBlock {
 	
 	public ItemBlockEnderBox() {
 		super(HandyModsBlocks.enderBox);
-		
-		setRegistryName(block.getRegistryName());
-		setUnlocalizedName(block.getUnlocalizedName());
 	}
 	
 	@Override
@@ -105,8 +101,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 		
 		if (world.isRemote) {
 			// just assume it worked and play the sound
-			SoundType soundtype = this.block.getSoundType(null, null, null, null);
-			world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+			SoundHelpers.playPlacementSound(player, pos, block);
 			return EnumActionResult.SUCCESS;
 		}
 		

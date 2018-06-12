@@ -5,6 +5,7 @@ import handymods.compat.theoneprobe.IProbeInfoAccessor;
 import handymods.item.ItemBlockEnderBox;
 import handymods.tile.TileEntityEnderBox;
 import handymods.tile.TileEntityEnderBox.BlockData;
+import handymods.util.SoundHelpers;
 import mcjty.theoneprobe.api.ElementAlignment;
 import mcjty.theoneprobe.api.IProbeHitData;
 import mcjty.theoneprobe.api.IProbeInfo;
@@ -45,14 +46,15 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 		if (!player.isSneaking())
 			return false;
 		
-		if (world.isRemote)
+		if (world.isRemote) {
+			SoundHelpers.playPlacementSound(player, pos, this);
 			return true;
+		}
 		
 		final TileEntityEnderBox tileEntity = tileEntity(world, pos);
 		final BlockData blockData = tileEntity.storedBlock;
 		
 		final IBlockState newState = blockData.getStateForPlacement(world, pos, facing, new Vec3d(hitX, hitY, hitZ), player, hand);
-		//blockData.block.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, blockData.metadata, player, hand);
 		world.setBlockState(pos, newState, 0b11);
 		
 		blockData.updatePosition(pos);

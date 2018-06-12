@@ -15,9 +15,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 @Mod.EventBusSubscriber
 public class HandyModsItems {
-	public static ItemBlockEnderBox enderBox = new ItemBlockEnderBox();
-	public static ItemBlock itemHolderOpaque = itemBlock(HandyModsBlocks.itemHolderOpaque);
-	public static ItemBlock itemHolderTransparent = itemBlock(HandyModsBlocks.itemHolderTransparent);
+	public static ItemBlockEnderBox enderBox = itemBlock(new ItemBlockEnderBox());
+	public static ItemBlockWithTooltip itemHolderOpaque = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderOpaque));
+	public static ItemBlockWithTooltip itemHolderTransparent = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderTransparent));
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -29,15 +29,15 @@ public class HandyModsItems {
 	}
 	
 	public static Item item(Item item, String name) {
-		return item
-				.setRegistryName(HandyMods.resourceLocation(name))
-				.setUnlocalizedName(HandyMods.namespaced(name));
+		item.setRegistryName(HandyMods.resourceLocation(name));
+		item.setUnlocalizedName(HandyMods.namespaced(name));
+		return item;
 	}
 	
-	public static ItemBlock itemBlock(Block block) {
-		return (ItemBlock) new ItemBlock(block)
-				.setRegistryName(block.getRegistryName())
-				.setUnlocalizedName(block.getUnlocalizedName());
+	public static <IB extends ItemBlock> IB itemBlock(IB item) {
+		item.setRegistryName(item.getBlock().getRegistryName());
+		item.setUnlocalizedName(item.getBlock().getUnlocalizedName());
+		return item;
 	}
 	
 	@SubscribeEvent

@@ -2,11 +2,8 @@ package handymods.block;
 
 import handymods.HandyMods;
 import handymods.block.render.RenderItemHolder;
-import handymods.tile.TileEntityItemHolder;
 import handymods.tile.TileEntityItemHolderRendered;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;

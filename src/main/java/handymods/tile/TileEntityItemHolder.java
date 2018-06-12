@@ -1,8 +1,6 @@
 package handymods.tile;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class TileEntityItemHolder extends ModContainerTileEntity {

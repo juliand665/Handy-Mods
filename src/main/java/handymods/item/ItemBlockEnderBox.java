@@ -34,8 +34,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 	
 	public ItemBlockEnderBox() {
 		super(HandyModsBlocks.enderBox);
-
-		// noinspection ConstantConditions
+		
 		setRegistryName(block.getRegistryName());
 		setUnlocalizedName(block.getUnlocalizedName());
 	}
@@ -59,7 +58,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 		
 		tooltip.add(contentsDesc);
 	}
-
+	
 	@Override
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
 		if (hasBlockData(stack)) {
@@ -68,7 +67,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 			return true; // TODO blacklist
 		}
 	}
-
+	
 	@Override
 	public boolean placeBlockAt(ItemStack itemStack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState) {
 		if (world.isRemote)
@@ -95,22 +94,22 @@ public class ItemBlockEnderBox extends ItemBlock {
 	@Override
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
 		final ItemStack itemStack = player.getHeldItem(hand);
-
+		
 		// already contains block
 		if (hasBlockData(itemStack))
 			return EnumActionResult.PASS;
-
+		
 		final IBlockState state = world.getBlockState(pos);
 		final Block block = state.getBlock();
 		final int metadata = block.getMetaFromState(state);
-
+		
 		if (world.isRemote) {
 			// just assume it worked and play the sound
 			SoundType soundtype = this.block.getSoundType(null, null, null, null);
 			world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
 			return EnumActionResult.SUCCESS;
 		}
-
+		
 		// only pick up valid blocks
 		// FIXME prevent recursive boxing
 		if (world.isAirBlock(pos) || state.getBlockHardness(world, pos) < 0)
@@ -158,7 +157,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 		}
 		return itemStack.getTagCompound();
 	}
-
+	
 	public static boolean hasBlockData(ItemStack itemStack) {
 		return tagOf(itemStack).hasKey(NBT_KEY_BLOCK_DATA);
 	}

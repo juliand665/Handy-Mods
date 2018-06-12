@@ -1,7 +1,5 @@
 package handymods.tile;
 
-import java.util.Optional;
-
 import handymods.HandyMods;
 import handymods.util.NBTCodable;
 import net.minecraft.block.Block;
@@ -17,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+
+import java.util.Optional;
 
 public class TileEntityEnderBox extends ModTileEntity {
 	private static final String NBT_KEY_STORED_BLOCK = "storedBlock";

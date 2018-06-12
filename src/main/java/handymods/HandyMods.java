@@ -1,16 +1,15 @@
 package handymods;
 
+import handymods.tile.TileEntityEnderBox;
 import handymods.tile.TileEntityItemHolder;
 import handymods.tile.TileEntityItemHolderRendered;
-import org.apache.logging.log4j.Logger;
-
-import handymods.tile.TileEntityEnderBox;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.apache.logging.log4j.Logger;
 
 @Mod(modid = HandyMods.MOD_ID, useMetadata = true, dependencies = "after:theoneprobe")
 public class HandyMods {

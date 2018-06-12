@@ -3,6 +3,8 @@ itemGroup.tabHandyMods=Handy Mods
 
 // Blocks
 tile.handymods.ender_box.name=Ender Box
+tile.handymods.item_holder_opaque.name=Item Holder (Opaque)
+tile.handymods.item_holder_transparent.name=Item Holder (Transparent)
 
 // Miscellaneous
 tooltip.handymods.ender_box.empty=Empty

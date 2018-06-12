@@ -83,7 +83,7 @@ public class TileEntityEnderBox extends ModTileEntity {
 			
 			tileEntityNBT.ifPresent(nbt -> container.setTag(NBT_KEY_TILE_ENTITY_NBT, nbt));
 		}
-
+		
 		/** updates the contained tile entity's position, if applicable */
 		public void updatePosition(BlockPos position) {
 			if (!tileEntityNBT.isPresent())
@@ -101,13 +101,13 @@ public class TileEntityEnderBox extends ModTileEntity {
 		}
 		
 		public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, Vec3d hit, EntityLivingBase placer, EnumHand hand) {
-			return block.getStateForPlacement(world,
-					pos,
-					facing,
+			return block.getStateForPlacement(
+					world, pos, facing,
 					(float) hit.x,
 					(float) hit.y,
 					(float) hit.z,
-					metadata, placer, hand);
+					metadata, placer, hand
+			);
 		}
 	}
 }

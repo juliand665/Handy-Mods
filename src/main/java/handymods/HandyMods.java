@@ -1,5 +1,7 @@
 package handymods;
 
+import handymods.tile.TileEntityItemHolder;
+import handymods.tile.TileEntityItemHolderRendered;
 import org.apache.logging.log4j.Logger;
 
 import handymods.tile.TileEntityEnderBox;
@@ -36,5 +38,7 @@ public class HandyMods {
 	
 	private void addEntities() {
 		GameRegistry.registerTileEntity(TileEntityEnderBox.class, resourceLocation("ender_box"));
+		GameRegistry.registerTileEntity(TileEntityItemHolder.class, resourceLocation("item_holder"));
+		GameRegistry.registerTileEntity(TileEntityItemHolderRendered.class, resourceLocation("item_holder_rendered"));
 	}
 }

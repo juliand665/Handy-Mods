@@ -1,0 +1,6 @@
+{
+	"parent": "handymods:block/item_holder",
+	"textures": {
+		"all": "handymods:blocks/item_holder_opaque"
+	}
+}

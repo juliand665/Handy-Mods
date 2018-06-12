@@ -62,11 +62,13 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 		world.scheduleUpdate(pos, blockData.block, 0); // e.g. makes sugar cane pop off if placed invalidly, but unfortunately doesn't affect cactus
 		
 		if (!player.capabilities.isCreativeMode) {
-			InventoryHelper.spawnItemStack(world,
+			InventoryHelper.spawnItemStack(
+					world,
 					pos.getX() + hitX,
 					pos.getY() + hitY,
 					pos.getZ() + hitZ,
-					new ItemStack(HandyModsBlocks.enderBox));
+					new ItemStack(HandyModsBlocks.enderBox)
+			);
 		}
 		
 		return true;

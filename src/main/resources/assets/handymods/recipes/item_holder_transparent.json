@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"0": {
+			"item": "minecraft:chest"
+		},
+		"#": {
+			"item": "minecraft:glass_pane"
+		},
+		"X": {
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"pattern": [
+		"X#X",
+		"#0#",
+		"X#X"
+	],
+	"result": {
+		"item": "handymods:item_holder_transparent",
+		"count": 4
+	}
+}

@@ -22,6 +22,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,17 +30,18 @@ import static handymods.util.Localization.localized;
 
 @Mod.EventBusSubscriber
 public class ItemBlockEnderBox extends ItemBlock {
-	static final String NBT_KEY_BLOCK_DATA = "blockData";
+	private static final String NBT_KEY_BLOCK_DATA = "blockData";
 	
 	public ItemBlockEnderBox() {
 		super(HandyModsBlocks.enderBox);
-		
+
+		// noinspection ConstantConditions
 		setRegistryName(block.getRegistryName());
 		setUnlocalizedName(block.getUnlocalizedName());
 	}
 	
 	@Override
-	public void addInformation(ItemStack itemStack, World world, List<String> tooltip, ITooltipFlag flag) {
+	public void addInformation(ItemStack itemStack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
 		super.addInformation(itemStack, world, tooltip, flag);
 		
 		final String contentsDesc;
@@ -78,7 +80,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 		final boolean shouldPlace = super.placeBlockAt(itemStack, player, world, pos, side, hitX, hitY, hitZ, newState);
 		
 		if (shouldPlace) {
-			TileEntityEnderBox tileEntity = (TileEntityEnderBox) world.getTileEntity(pos);
+			final TileEntityEnderBox tileEntity = HandyModsBlocks.enderBox.tileEntity(world, pos);
 			tileEntity.storedBlock = getBlockData(itemStack);
 		}
 		
@@ -131,7 +133,9 @@ public class ItemBlockEnderBox extends ItemBlock {
 		// now, cause the update we prevented earlier, to make sure everything is in a nice state
 		world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, newState, 0b11101);
 		
+		final TileEntityEnderBox tileEntity = HandyModsBlocks.enderBox.tileEntity(world, pos);
 		final TileEntityEnderBox newTileEntity = (TileEntityEnderBox) world.getTileEntity(pos);
+		assert newTileEntity != null;
 		newTileEntity.storedBlock = new BlockData(block, metadata, tileEntityNBT);
 		
 		return EnumActionResult.SUCCESS;
@@ -154,7 +158,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 		}
 		return itemStack.getTagCompound();
 	}
-	
+
 	public static boolean hasBlockData(ItemStack itemStack) {
 		return tagOf(itemStack).hasKey(NBT_KEY_BLOCK_DATA);
 	}

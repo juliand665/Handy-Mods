@@ -1,0 +1,23 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"0": {
+			"item": "minecraft:chest"
+		},
+		"#": {
+			"item": "minecraft:iron_bars"
+		},
+		"X": {
+			"item": "minecraft:iron_ingot"
+		}
+	},
+	"pattern": [
+		"X#X",
+		"#0#",
+		"X#X"
+	],
+	"result": {
+		"item": "handymods:item_holder_opaque",
+		"count": 4
+	}
+}

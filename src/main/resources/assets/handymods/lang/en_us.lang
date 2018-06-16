@@ -5,10 +5,12 @@ itemGroup.tabHandyMods=Handy Mods
 tile.handymods.ender_box.name=Ender Box
 tile.handymods.item_holder_opaque.name=Item Holder (Opaque)
 tile.handymods.item_holder_transparent.name=Item Holder (Transparent)
+tile.handymods.chesty_crafting_table.name=Chesty Crafting Table
 
 // Tooltips
 tooltip.handymods.ender_box.empty=Empty
 tooltip.handymods.ender_box.contains_block=Contains %s
 tooltip.handymods.ender_box.contains_block.advanced=Contains %s (%s)
-tooltip.handymods.item_holder_opaque.default=Single-item container. This version has better performance because it doesn't display the contained item.
-tooltip.handymods.item_holder_transparent.default=Single-item container. This version displays the contained item.
+tooltip.handymods.item_holder_opaque.default=A single-item container. This version has better performance because it doesn't display the contained item.
+tooltip.handymods.item_holder_transparent.default=A single-item container. This version displays the contained item.
+tooltip.handymods.chesty_crafting_table.default=A crafting table that keeps its contents when you close the GUI.

@@ -14,16 +14,16 @@ import net.minecraftforge.registries.IForgeRegistry;
 @Mod.EventBusSubscriber
 public class HandyModsBlocks {
 	public static BlockEnderBox enderBox = new BlockEnderBox();
-	public static Block chestyCraftingTable; // TODO
-	public static Block itemHolderOpaque = new BlockItemHolder();
-	public static Block itemHolderTransparent = new BlockItemHolderRendered();
+	public static BlockItemHolder itemHolderOpaque = new BlockItemHolder();
+	public static BlockItemHolderRendered itemHolderTransparent = new BlockItemHolderRendered();
+	public static BlockChestyCraftingTable chestyCraftingTable = new BlockChestyCraftingTable();
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
 		final IForgeRegistry<Block> registry = event.getRegistry();
 		
 		registry.register(block(enderBox, "ender_box"));
-		//registry.register(block(chestyCraftingTable, "chesty_crafting_table"));
+		registry.register(block(chestyCraftingTable, "chesty_crafting_table"));
 		registry.register(block(itemHolderOpaque, "item_holder_opaque"));
 		registry.register(block(itemHolderTransparent, "item_holder_transparent"));
 	}

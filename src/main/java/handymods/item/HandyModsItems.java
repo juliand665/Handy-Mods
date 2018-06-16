@@ -18,6 +18,7 @@ public class HandyModsItems {
 	public static ItemBlockEnderBox enderBox = itemBlock(new ItemBlockEnderBox());
 	public static ItemBlockWithTooltip itemHolderOpaque = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderOpaque));
 	public static ItemBlockWithTooltip itemHolderTransparent = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderTransparent));
+	public static ItemBlockWithTooltip chestyCraftingTable = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.chestyCraftingTable));
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {
@@ -26,6 +27,7 @@ public class HandyModsItems {
 		registry.register(enderBox);
 		registry.register(itemHolderOpaque);
 		registry.register(itemHolderTransparent);
+		registry.register(chestyCraftingTable);
 	}
 	
 	public static Item item(Item item, String name) {
@@ -45,6 +47,7 @@ public class HandyModsItems {
 		registerItemModel(enderBox);
 		registerItemModel(itemHolderOpaque);
 		registerItemModel(itemHolderTransparent);
+		registerItemModel(chestyCraftingTable);
 	}
 	
 	private static void registerItemModel(Item item) {

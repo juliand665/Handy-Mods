@@ -1,6 +1,6 @@
 package handymods;
 
-import handymods.item.HandyModsItems;
+import handymods.block.HandyModsBlocks;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
@@ -13,6 +13,6 @@ public class CreativeTabHandyMods extends CreativeTabs {
 	
 	@Override
 	public ItemStack getTabIconItem() {
-		return new ItemStack(HandyModsItems.enderBox);
+		return new ItemStack(HandyModsBlocks.enderBox);
 	}
 }

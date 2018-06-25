@@ -59,6 +59,8 @@ public class BlockChestyCraftingTable extends Block {
 		return null;
 	}
 	
+	// block states
+	
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, PROPERTY_FACING);
 	}

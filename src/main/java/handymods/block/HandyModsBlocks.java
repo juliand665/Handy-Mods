@@ -4,16 +4,18 @@ import handymods.HandyMods;
 import handymods.block.render.RenderItemHolder;
 import handymods.tile.TileEntityItemHolderRendered;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 
 @Mod.EventBusSubscriber
 public class HandyModsBlocks {
@@ -31,6 +33,7 @@ public class HandyModsBlocks {
 	}
 	
 	@SubscribeEvent
+	@SideOnly(CLIENT)
 	public static void registerModels(@SuppressWarnings("unused") ModelRegistryEvent event) {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemHolderRendered.class, new RenderItemHolder());
 	}

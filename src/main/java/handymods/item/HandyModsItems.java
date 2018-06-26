@@ -11,10 +11,13 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 
 @Mod.EventBusSubscriber
 public class HandyModsItems {
@@ -31,12 +34,14 @@ public class HandyModsItems {
 		ITEMS.forEach(registry::register);
 	}
 	
+	/*
 	private static Item item(Item item, String name) {
 		item.setRegistryName(HandyMods.resourceLocation(name));
 		item.setUnlocalizedName(HandyMods.namespaced(name));
 		ITEMS.add(item);
 		return item;
 	}
+	*/
 	
 	private static <IB extends ItemBlock> IB itemBlock(IB item) {
 		ResourceLocation registryName = item.getBlock().getRegistryName();
@@ -48,6 +53,7 @@ public class HandyModsItems {
 	}
 	
 	@SubscribeEvent
+	@SideOnly(CLIENT)
 	public static void registerModels(@SuppressWarnings("unused") ModelRegistryEvent event) {
 		ITEMS.forEach(item -> {
 			ResourceLocation registryName = item.getRegistryName();

@@ -1,13 +1,13 @@
 package handymods;
 
-import handymods.tile.TileEntityEnderBox;
-import handymods.tile.TileEntityItemHolder;
-import handymods.tile.TileEntityItemHolderRendered;
+import handymods.client.gui.GuiProxy;
+import handymods.tile.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
@@ -15,6 +15,8 @@ import org.apache.logging.log4j.Logger;
 public class HandyMods {
 	public static final String MOD_ID = "handymods";
 	
+	@Mod.Instance
+	public static HandyMods instance;
 	public static Logger logger;
 	
 	public static ResourceLocation resourceLocation(String path) {
@@ -33,11 +35,13 @@ public class HandyMods {
 	@EventHandler
 	public void init(@SuppressWarnings("unused") FMLInitializationEvent event) {
 		addEntities();
+		NetworkRegistry.INSTANCE.registerGuiHandler(this, new GuiProxy());
 	}
 	
 	private void addEntities() {
 		GameRegistry.registerTileEntity(TileEntityEnderBox.class, resourceLocation("ender_box"));
 		GameRegistry.registerTileEntity(TileEntityItemHolder.class, resourceLocation("item_holder"));
 		GameRegistry.registerTileEntity(TileEntityItemHolderRendered.class, resourceLocation("item_holder_rendered"));
+		GameRegistry.registerTileEntity(TileEntityChestyCraftingTable.class, resourceLocation("chesty_crafting_table"));
 	}
 }

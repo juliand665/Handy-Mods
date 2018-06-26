@@ -12,20 +12,20 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 
 import static handymods.util.Localization.localized;
+import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 
 @Mod.EventBusSubscriber
 public class ItemBlockEnderBox extends ItemBlock {
@@ -36,6 +36,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 	}
 	
 	@Override
+	@SideOnly(CLIENT)
 	public void addInformation(ItemStack itemStack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
 		super.addInformation(itemStack, world, tooltip, flag);
 		
@@ -127,8 +128,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 		// now, cause the update we prevented earlier, to make sure everything is in a nice state
 		world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, newState, 0b11101);
 		
-		final TileEntityEnderBox tileEntity = HandyModsBlocks.enderBox.tileEntity(world, pos);
-		final TileEntityEnderBox newTileEntity = (TileEntityEnderBox) world.getTileEntity(pos);
+		final TileEntityEnderBox newTileEntity = HandyModsBlocks.enderBox.tileEntity(world, pos);
 		assert newTileEntity != null;
 		newTileEntity.storedBlock = new BlockData(block, metadata, tileEntityNBT);
 		

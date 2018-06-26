@@ -1,21 +1,27 @@
 package handymods.block;
 
 import handymods.CreativeTabHandyMods;
+import handymods.HandyMods;
+import handymods.tile.TileEntityChestyCraftingTable;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BlockChestyCraftingTable extends Block {
+public class BlockChestyCraftingTable extends BlockWithTileEntity<TileEntityChestyCraftingTable> {
+	public static final int GUI_ID = 1;
+	
 	public static final PropertyDirection PROPERTY_FACING = BlockHorizontal.FACING;
 	
 	// for more accurate bounding boxes
@@ -39,6 +45,27 @@ public class BlockChestyCraftingTable extends Block {
 		
 		setDefaultState(blockState.getBaseState()
 				.withProperty(PROPERTY_FACING, EnumFacing.NORTH));
+	}
+	
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (world.isRemote)
+			return true;
+		
+		player.openGui(HandyMods.instance, GUI_ID, world, pos.getX(), pos.getY(), pos.getZ());
+		return true;
+	}
+	
+	@Override
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		tileEntity(world, pos).dropContents();
+		
+		super.breakBlock(world, pos, state);
+	}
+	
+	@Override
+	public TileEntityChestyCraftingTable newTileEntity(IBlockAccess world, IBlockState state) {
+		return new TileEntityChestyCraftingTable();
 	}
 	
 	@Override

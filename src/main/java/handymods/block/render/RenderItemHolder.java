@@ -6,7 +6,11 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
+import static net.minecraftforge.fml.relauncher.Side.CLIENT;
+
+@SideOnly(CLIENT)
 public class RenderItemHolder extends TileEntitySpecialRenderer<TileEntityItemHolderRendered> {
 	@Override
 	public void render(TileEntityItemHolderRendered tileEntity, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {

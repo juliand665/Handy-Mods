@@ -1,4 +1,8 @@
-# Handy-Mods
+<p align="center">
+	<img width=256px src="Images/icon.png" />
+</p>
+
+# Handy Mods
 
 A small mod that aims to extract handy features from giant mods so you can shave down your mod list, loading times, and JEI pages.
 

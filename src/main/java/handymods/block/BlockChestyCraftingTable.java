@@ -3,7 +3,8 @@ package handymods.block;
 import handymods.CreativeTabHandyMods;
 import handymods.HandyMods;
 import handymods.tile.TileEntityChestyCraftingTable;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockHorizontal;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockStateContainer;
@@ -26,6 +27,7 @@ public class BlockChestyCraftingTable extends BlockWithTileEntity<TileEntityChes
 	
 	// for more accurate bounding boxes
 	private static final List<AxisAlignedBB> bounds = new ArrayList<>();
+	
 	static {
 		bounds.add(new AxisAlignedBB(0.00, 0.75, 0.00, 1.00, 1.00, 1.00)); // top
 		bounds.add(new AxisAlignedBB(0.00, 0.00, 0.00, 0.25, 0.75, 0.25)); // leg 00

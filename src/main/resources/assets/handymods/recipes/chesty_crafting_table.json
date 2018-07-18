@@ -1,19 +1,13 @@
 {
 	"type": "minecraft:crafting_shaped",
 	"key": {
-		"0": {
-			"item": "minecraft:chest"
-		},
-		"#": {
-			"item": "minecraft:crafting_table"
-		},
-		"|": {
-			"item": "minecraft:stick"
-		}
+		"0": { "item": "minecraft:chest" },
+		"#": { "item": "minecraft:crafting_table" },
+		"/": { "item": "minecraft:stick" }
 	},
 	"pattern": [
-		" # ",
-		"|0|"
+		"/#",
+		"0/"
 	],
 	"result": {
 		"item": "handymods:chesty_crafting_table"

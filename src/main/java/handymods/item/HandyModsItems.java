@@ -1,6 +1,5 @@
 package handymods.item;
 
-import handymods.HandyMods;
 import handymods.block.HandyModsBlocks;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;

@@ -57,6 +57,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 	}
 	
 	@Override
+	@SideOnly(CLIENT)
 	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
 		if (hasBlockData(stack)) {
 			return super.canPlaceBlockOnSide(worldIn, pos, side, player, stack);

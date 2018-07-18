@@ -7,7 +7,6 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemStackHandler;
 
 public class ContainerChestyCraftingTable extends Container {
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);

@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = HandyMods.MOD_ID, useMetadata = true, dependencies = "after:theoneprobe")
+@Mod(modid = HandyMods.MOD_ID, version = "__VERSION__", useMetadata = true, dependencies = "after:theoneprobe")
 public class HandyMods {
 	public static final String MOD_ID = "handymods";
 	

@@ -7,6 +7,7 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.items.SlotItemHandler;
 
 public class ContainerChestyCraftingTable extends Container {
 	public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
@@ -39,7 +40,8 @@ public class ContainerChestyCraftingTable extends Container {
 		
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 3; x++) {
-				addSlotToContainer(new Slot(craftMatrix, x + y * 3, 30 + x * 18, 17 + y * 18));
+				addSlotToContainer(new SlotItemHandler(tileEntity.itemHandler, x + y * 3, 30 + x * 18, 17 + y * 18));
+				//addSlotToContainer(new Slot(craftMatrix, x + y * 3, 30 + x * 18, 17 + y * 18));
 			}
 		}
 	}
@@ -66,6 +68,7 @@ public class ContainerChestyCraftingTable extends Container {
 		for (int i = 0; i < 9; i++) {
 			System.out.println("\t" + craftMatrix.getStackInSlot(i));
 			tileEntity.itemHandler.setStackInSlot(i, craftMatrix.getStackInSlot(i));
+			tileEntity.markDirty();
 		}
 		slotChangedCraftingGrid(world, player, craftMatrix, craftResult);
 	}

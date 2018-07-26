@@ -8,8 +8,18 @@ public class TileEntityChestyCraftingTable extends ModContainerTileEntity {
 		return new ItemStackHandler(9) {
 			@Override
 			protected void onContentsChanged(int slot) {
-				contentsChanged();
 				super.onContentsChanged(slot);
+				
+				System.out.println("Contents changed!");
+				contentsChanged();
+			}
+			
+			@Override
+			protected void onLoad() {
+				super.onLoad();
+				
+				System.out.println("Contents loaded!");
+				contentsChanged();
 			}
 		};
 	}

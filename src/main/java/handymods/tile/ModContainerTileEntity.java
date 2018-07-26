@@ -40,6 +40,9 @@ public abstract class ModContainerTileEntity extends ModTileEntity {
 	}
 	
 	public void contentsChanged() {
+		if (world == null)
+			return; // not loaded yet
+		
 		markDirty();
 		IBlockState state = world.getBlockState(pos);
 		world.notifyBlockUpdate(pos, state, state, 0b11);

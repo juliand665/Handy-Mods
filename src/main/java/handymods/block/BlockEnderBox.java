@@ -36,9 +36,6 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 	
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-		if (!player.isSneaking())
-			return false;
-		
 		if (world.isRemote) {
 			SoundHelpers.playPlacementSound(player, pos, this);
 			return true;

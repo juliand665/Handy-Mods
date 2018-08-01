@@ -70,33 +70,6 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 	}
 	
 	@Override
-	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-		return getDroppedItem(world, pos);
-	}
-	
-	private ItemStack getDroppedItem(IBlockAccess world, BlockPos pos) {
-		final TileEntityEnderBox tileEntity = tileEntity(world, pos);
-		final ItemStack itemStack = new ItemStack(this);
-		ItemBlockEnderBox.setBlockData(itemStack, tileEntity.storedBlock);
-		return itemStack;
-	}
-	
-	// drop handling
-	
-	private ItemStack droppedItem;
-	
-	@Override
-	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-		droppedItem = getDroppedItem(world, pos);
-		return super.removedByPlayer(state, world, pos, player, willHarvest);
-	}
-	
-	@Override
-	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		drops.add(droppedItem);
-	}
-	
-	@Override
 	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
 		final TileEntityEnderBox tileEntity = tileEntity(world, data.getPos());
 		final BlockData storedBlock = tileEntity.storedBlock;
@@ -115,5 +88,32 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 		probeInfo.horizontal(new LayoutStyle().alignment(ElementAlignment.ALIGN_CENTER))
 				.item(containedBlock)
 				.itemLabel(containedBlock);
+	}
+	
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return getDroppedItem(world, pos);
+	}
+	
+	private ItemStack getDroppedItem(IBlockAccess world, BlockPos pos) {
+		final TileEntityEnderBox tileEntity = tileEntity(world, pos);
+		final ItemStack itemStack = new ItemStack(this);
+		ItemBlockEnderBox.setBlockData(itemStack, tileEntity.storedBlock);
+		return itemStack;
+	}
+	
+	// drop handling
+	
+	private ItemStack droppedItem;
+	
+	@Override
+	public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+		droppedItem = getDroppedItem(world, pos); // have to store because the tile entity is removed before getDrops is called
+		return super.removedByPlayer(state, world, pos, player, willHarvest);
+	}
+	
+	@Override
+	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+		drops.add(droppedItem);
 	}
 }

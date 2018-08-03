@@ -1,5 +1,6 @@
 package handymods.item;
 
+import handymods.HandyModsConfig;
 import handymods.block.HandyModsBlocks;
 import handymods.tile.TileEntityEnderBox;
 import handymods.tile.TileEntityEnderBox.BlockData;
@@ -19,6 +20,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.ArrayUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -56,13 +58,18 @@ public class ItemBlockEnderBox extends ItemBlock {
 		tooltip.add(contentsDesc);
 	}
 	
+	private boolean canPickUp(IBlockState blockState) {
+		String registryName = blockState.getBlock().getRegistryName().toString();
+		return !ArrayUtils.contains(HandyModsConfig.enderBoxBlacklist, registryName);
+	}
+	
 	@Override
 	@SideOnly(CLIENT)
-	public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
 		if (hasBlockData(stack)) {
-			return super.canPlaceBlockOnSide(worldIn, pos, side, player, stack);
+			return super.canPlaceBlockOnSide(world, pos, side, player, stack);
 		} else {
-			return true; // TODO blacklist
+			return canPickUp(world.getBlockState(pos));
 		}
 	}
 	
@@ -101,16 +108,15 @@ public class ItemBlockEnderBox extends ItemBlock {
 		final Block block = state.getBlock();
 		final int metadata = block.getMetaFromState(state);
 		
+		// only pick up valid blocks
+		if (world.isAirBlock(pos) || !canPickUp(state))
+			return EnumActionResult.PASS;
+		
 		if (world.isRemote) {
 			// just assume it worked and play the sound
 			SoundHelpers.playPlacementSound(player, pos, block);
 			return EnumActionResult.SUCCESS;
 		}
-		
-		// only pick up valid blocks
-		// FIXME prevent recursive boxing
-		if (world.isAirBlock(pos) || state.getBlockHardness(world, pos) < 0)
-			return EnumActionResult.PASS;
 		
 		final Optional<NBTTagCompound> tileEntityNBT = Optional
 				.ofNullable(world.getTileEntity(pos))
@@ -120,7 +126,6 @@ public class ItemBlockEnderBox extends ItemBlock {
 			itemStack.shrink(1);
 		}
 		
-		// TODO this might cause duping glitches with some multiblock machines
 		// first, remove the block without causing updates, voiding any ensuing drops
 		isCancellingItemDrops = true;
 		final IBlockState newState = HandyModsBlocks.enderBox.getDefaultState();

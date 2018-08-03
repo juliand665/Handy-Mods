@@ -2,7 +2,11 @@ package handymods.tile;
 
 import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.Optional;
+
 public class TileEntityChestyCraftingTable extends ModContainerTileEntity {
+	private Optional<Listener> listener = Optional.empty();
+	
 	@Override
 	protected ItemStackHandler newItemHandler() {
 		return new ItemStackHandler(9) {
@@ -22,5 +26,24 @@ public class TileEntityChestyCraftingTable extends ModContainerTileEntity {
 				contentsChanged();
 			}
 		};
+	}
+	
+	public void setListener(Listener listener) {
+		this.listener = Optional.of(listener);
+	}
+	
+	public void removeListener() {
+		this.listener = Optional.empty();
+	}
+	
+	@Override
+	public void contentsChanged() {
+		super.contentsChanged();
+		
+		listener.ifPresent(Listener::tileEntityContentsChanged);
+	}
+	
+	public interface Listener {
+		void tileEntityContentsChanged();
 	}
 }

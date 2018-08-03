@@ -7,41 +7,47 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerChestyCraftingTable extends Container {
-	public final InventoryCrafting craftMatrix = new InventoryCrafting(this, 3, 3);
+public class ContainerChestyCraftingTable extends Container implements TileEntityChestyCraftingTable.Listener {
+	public final InventoryCrafting craftMatrix;
 	public final InventoryCraftResult craftResult = new InventoryCraftResult();
 	private final World world;
 	private final BlockPos pos;
 	private final EntityPlayer player;
 	private final TileEntityChestyCraftingTable tileEntity;
-	private boolean isLoading = true;
 	
 	public ContainerChestyCraftingTable(InventoryPlayer playerInventory, World world, BlockPos pos) {
+		super();
+		
 		this.world = world;
 		this.pos = pos;
 		this.player = playerInventory.player;
 		this.tileEntity = (TileEntityChestyCraftingTable) world.getTileEntity(pos);
+		assert tileEntity != null;
+		this.craftMatrix = new InventoryChestyCrafting(this, tileEntity.itemHandler);
 		
 		addOwnSlots();
 		addPlayerSlots(playerInventory);
+		slotChangedCraftingGrid(world, player, craftMatrix, craftResult);
+		
+		tileEntity.setListener(this);
+	}
+	
+	@Override
+	public void onContainerClosed(EntityPlayer player) {
+		tileEntity.removeListener();
+		
+		super.onContainerClosed(player);
 	}
 	
 	private void addOwnSlots() {
+		// crafting result
 		addSlotToContainer(new SlotCrafting(player, craftMatrix, craftResult, 0, 124, 35));
 		
-		for (int i = 0; i < 9; i++) {
-			System.out.println("Contents of " + i + ": " + tileEntity.itemHandler.getStackInSlot(i));
-			craftMatrix.setInventorySlotContents(i, tileEntity.itemHandler.getStackInSlot(i));
-		}
-		isLoading = false;
-		slotChangedCraftingGrid(world, player, craftMatrix, craftResult);
-		
+		// crafting grid
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 3; x++) {
-				addSlotToContainer(new SlotItemHandler(tileEntity.itemHandler, x + y * 3, 30 + x * 18, 17 + y * 18));
-				//addSlotToContainer(new Slot(craftMatrix, x + y * 3, 30 + x * 18, 17 + y * 18));
+				addSlotToContainer(new Slot(craftMatrix, x + 3 * y, 30 + 18 * x, 17 + 18 * y));
 			}
 		}
 	}
@@ -50,32 +56,41 @@ public class ContainerChestyCraftingTable extends Container {
 		// inventory
 		for (int y = 0; y < 3; y++) {
 			for (int x = 0; x < 9; x++) {
-				addSlotToContainer(new Slot(playerInventory, x + y * 9 + 9, 8 + x * 18, 84 + y * 18));
+				addSlotToContainer(new Slot(playerInventory, 9 + x + 9 * y, 8 + 18 * x, 84 + 18 * y));
 			}
 		}
 		
 		// hotbar
 		for (int x = 0; x < 9; x++) {
-			addSlotToContainer(new Slot(playerInventory, x, 8 + x * 18, 142));
+			addSlotToContainer(new Slot(playerInventory, x, 8 + 18 * x, 142));
 		}
+	}
+	
+	@Override
+	public void putStackInSlot(int slotID, ItemStack stack) {
+		super.putStackInSlot(slotID, stack);
+		
+		System.out.println("Putting stack in slot " + slotID + ": " + stack);
+		
+		onCraftMatrixChanged(craftMatrix);
+	}
+	
+	@Override
+	public void tileEntityContentsChanged() {
+		onCraftMatrixChanged(craftMatrix);
 	}
 	
 	@Override
 	public void onCraftMatrixChanged(IInventory inventory) {
-		if (isLoading)
-			return;
 		System.out.println("Crafting matrix changed!");
 		for (int i = 0; i < 9; i++) {
-			System.out.println("\t" + craftMatrix.getStackInSlot(i));
-			tileEntity.itemHandler.setStackInSlot(i, craftMatrix.getStackInSlot(i));
-			tileEntity.markDirty();
+			//System.out.println("\t" + craftMatrix.getStackInSlot(i));
 		}
+		//tileEntity.markDirty(); // TODO i can probably remove this
+		
+		//System.out.println("before: " + craftResult.getStackInSlot(0));
 		slotChangedCraftingGrid(world, player, craftMatrix, craftResult);
-	}
-	
-	@Override
-	public void onContainerClosed(EntityPlayer playerIn) {
-		super.onContainerClosed(playerIn);
+		//System.out.println("after: " + craftResult.getStackInSlot(0));
 	}
 	
 	@Override

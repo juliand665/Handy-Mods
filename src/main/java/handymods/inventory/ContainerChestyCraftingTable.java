@@ -67,30 +67,13 @@ public class ContainerChestyCraftingTable extends Container implements TileEntit
 	}
 	
 	@Override
-	public void putStackInSlot(int slotID, ItemStack stack) {
-		super.putStackInSlot(slotID, stack);
-		
-		System.out.println("Putting stack in slot " + slotID + ": " + stack);
-		
-		onCraftMatrixChanged(craftMatrix);
-	}
-	
-	@Override
 	public void tileEntityContentsChanged() {
 		onCraftMatrixChanged(craftMatrix);
 	}
 	
 	@Override
 	public void onCraftMatrixChanged(IInventory inventory) {
-		System.out.println("Crafting matrix changed!");
-		for (int i = 0; i < 9; i++) {
-			//System.out.println("\t" + craftMatrix.getStackInSlot(i));
-		}
-		//tileEntity.markDirty(); // TODO i can probably remove this
-		
-		//System.out.println("before: " + craftResult.getStackInSlot(0));
 		slotChangedCraftingGrid(world, player, craftMatrix, craftResult);
-		//System.out.println("after: " + craftResult.getStackInSlot(0));
 	}
 	
 	@Override

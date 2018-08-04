@@ -1,6 +1,7 @@
 package handymods;
 
 import handymods.client.gui.GuiProxy;
+import handymods.compat.craftingtweaks.CraftingTweaksCompatibility;
 import handymods.tile.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
@@ -30,6 +31,7 @@ public class HandyMods {
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
 		logger = event.getModLog();
+		CraftingTweaksCompatibility.setUp();
 	}
 	
 	@EventHandler

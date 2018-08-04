@@ -6,6 +6,8 @@
 
 A small mod that aims to extract handy features from giant mods so you can shave down your mod list, loading times, and JEI pages.
 
+Download in [the releases section](https://github.com/juliand665/Handy-Mods/releases) or on [CurseForge](https://minecraft.curseforge.com/projects/handy-mods).
+
 ### Current features:
 
 * Ender Box: a nice way to move blocks around while keeping their contents intact (heavily inspired by Mekanism cardboard box)

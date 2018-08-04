@@ -2,10 +2,10 @@ package handymods.tile;
 
 import net.minecraftforge.items.ItemStackHandler;
 
-import java.util.Optional;
+import java.util.*;
 
 public class TileEntityChestyCraftingTable extends ModContainerTileEntity {
-	private Optional<Listener> listener = Optional.empty();
+	private List<Listener> listeners = new ArrayList<>();
 	
 	@Override
 	protected ItemStackHandler newItemHandler() {
@@ -14,7 +14,6 @@ public class TileEntityChestyCraftingTable extends ModContainerTileEntity {
 			protected void onContentsChanged(int slot) {
 				super.onContentsChanged(slot);
 				
-				System.out.println("Contents changed!");
 				contentsChanged();
 			}
 			
@@ -22,25 +21,24 @@ public class TileEntityChestyCraftingTable extends ModContainerTileEntity {
 			protected void onLoad() {
 				super.onLoad();
 				
-				System.out.println("Contents loaded!");
 				contentsChanged();
 			}
 		};
 	}
 	
-	public void setListener(Listener listener) {
-		this.listener = Optional.of(listener);
+	public void addListener(Listener listener) {
+		listeners.add(listener);
 	}
 	
-	public void removeListener() {
-		this.listener = Optional.empty();
+	public void removeListener(Listener listener) {
+		listeners.remove(listener);
 	}
 	
 	@Override
 	public void contentsChanged() {
 		super.contentsChanged();
 		
-		listener.ifPresent(Listener::tileEntityContentsChanged);
+		listeners.forEach(Listener::tileEntityContentsChanged);
 	}
 	
 	public interface Listener {

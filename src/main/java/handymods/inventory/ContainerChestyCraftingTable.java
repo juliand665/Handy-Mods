@@ -30,12 +30,12 @@ public class ContainerChestyCraftingTable extends Container implements TileEntit
 		addPlayerSlots(playerInventory);
 		slotChangedCraftingGrid(world, player, craftMatrix, craftResult);
 		
-		tileEntity.setListener(this);
+		tileEntity.addListener(this);
 	}
 	
 	@Override
 	public void onContainerClosed(EntityPlayer player) {
-		tileEntity.removeListener();
+		tileEntity.removeListener(this);
 		
 		super.onContainerClosed(player);
 	}

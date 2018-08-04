@@ -51,7 +51,6 @@ public class InventoryChestyCrafting extends InventoryCrafting {
 	@Override
 	public void setInventorySlotContents(int index, ItemStack stack) {
 		itemHandler.setStackInSlot(index, stack);
-		System.out.println("contents of slot " + index + " set to " + stack);
 		eventHandler.onCraftMatrixChanged(this);
 	}
 	

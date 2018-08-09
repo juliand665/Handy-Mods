@@ -20,11 +20,11 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.ArrayUtils;
 
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
+import java.util.regex.Pattern;
 
 import static handymods.util.Localization.localized;
 import static net.minecraftforge.fml.relauncher.Side.CLIENT;
@@ -60,7 +60,27 @@ public class ItemBlockEnderBox extends ItemBlock {
 	
 	private boolean canPickUp(IBlockState blockState) {
 		String registryName = blockState.getBlock().getRegistryName().toString();
-		return !ArrayUtils.contains(HandyModsConfig.enderBoxBlacklist, registryName);
+		return !isBlacklisted(registryName);
+	}
+	
+	private boolean isBlacklisted(String blockName) {
+		for (String glob : HandyModsConfig.enderBoxBlacklist) {
+			StringBuilder pattern = new StringBuilder(glob.length());
+			for (String part : glob.split("\\*", -1)) {
+				if (!part.isEmpty()) { // not necessary
+					pattern.append(Pattern.quote(part));
+				}
+				pattern.append(".*");
+			}
+			
+			// delete last ".*" wildcard
+			pattern.delete(pattern.length() - 2, pattern.length());
+			
+			if (Pattern.matches(pattern.toString(), blockName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	@Override

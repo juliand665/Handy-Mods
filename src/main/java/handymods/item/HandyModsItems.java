@@ -22,10 +22,10 @@ import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 public class HandyModsItems {
 	private static final List<Item> ITEMS = new ArrayList<>(); // has to be on top so it's loaded first
 	
-	public static final ItemBlockEnderBox ENDER_BOX = itemBlock(new ItemBlockEnderBox());
-	public static final ItemBlockWithTooltip ITEM_HOLDER_OPAQUE = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderOpaque));
-	public static final ItemBlockWithTooltip ITEM_HOLDER_TRANSPARENT = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderTransparent));
-	public static final ItemBlockWithTooltip CHESTY_CRAFTING_TABLE = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.chestyCraftingTable));
+	public static final ItemBlockEnderBox enderBox = itemBlock(new ItemBlockEnderBox());
+	public static final ItemBlockWithTooltip itemHolderOpaque = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderOpaque));
+	public static final ItemBlockWithTooltip itemHolderTransparent = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderTransparent));
+	public static final ItemBlockWithTooltip chestyCraftingTable = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.chestyCraftingTable));
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {

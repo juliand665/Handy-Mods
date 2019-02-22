@@ -1,5 +1,6 @@
 package handymods.item;
 
+import handymods.HandyMods;
 import handymods.HandyModsConfig;
 import handymods.block.HandyModsBlocks;
 import handymods.tile.TileEntityEnderBox;
@@ -29,7 +30,6 @@ import java.util.regex.Pattern;
 import static handymods.util.Localization.localized;
 import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 
-@Mod.EventBusSubscriber
 public class ItemBlockEnderBox extends ItemBlock {
 	private static final String NBT_KEY_BLOCK_DATA = "blockData";
 	
@@ -113,8 +113,6 @@ public class ItemBlockEnderBox extends ItemBlock {
 	
 	// placing around block
 	
-	private static boolean isCancellingItemDrops = false;
-	
 	// onItemUseFirst is necessary to avoid opening the block's GUI instead
 	@Override
 	public EnumActionResult onItemUseFirst(EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, EnumHand hand) {
@@ -133,11 +131,12 @@ public class ItemBlockEnderBox extends ItemBlock {
 			return EnumActionResult.PASS;
 		
 		if (world.isRemote) {
-			// just assume it worked and play the sound
+			// on the client, just assume it worked and play the sound
 			SoundHelpers.playPlacementSound(player, pos, block);
 			return EnumActionResult.SUCCESS;
 		}
 		
+		// capture tile entity
 		final Optional<NBTTagCompound> tileEntityNBT = Optional
 				.ofNullable(world.getTileEntity(pos))
 				.map(prev -> prev.writeToNBT(new NBTTagCompound()));
@@ -146,28 +145,24 @@ public class ItemBlockEnderBox extends ItemBlock {
 			itemStack.shrink(1);
 		}
 		
-		// first, remove the block without causing updates, voiding any ensuing drops
-		isCancellingItemDrops = true;
+		// replace block
+		// We remove the tile entity before removing the block so the breakBlock() handler can't use it to drop items or cause flux etc.
+		world.removeTileEntity(pos);
 		final IBlockState newState = HandyModsBlocks.enderBox.getDefaultState();
-		world.setBlockState(pos, newState, 0b00010);
-		isCancellingItemDrops = false;
-		// now, cause the update we prevented earlier, to make sure everything is in a nice state
-		world.markAndNotifyBlock(pos, world.getChunkFromBlockCoords(pos), state, newState, 0b11101);
+		// Since we removed the tile entity, we may be violating some assumptions, but that should only cause early exits from breakBlock(), which is called late enough that we don't break much.
+		try {
+			world.setBlockState(pos, newState, 0b00011);
+		} catch (Exception e) {
+			HandyMods.logger.debug("ender box placement ignoring the following exception:");
+			HandyMods.logger.debug(e);
+		}
 		
+		// store captured tile entity
 		final TileEntityEnderBox newTileEntity = HandyModsBlocks.enderBox.tileEntity(world, pos);
 		assert newTileEntity != null;
 		newTileEntity.storedBlock = new BlockData(block, metadata, tileEntityNBT);
 		
 		return EnumActionResult.SUCCESS;
-	}
-	
-	@SubscribeEvent
-	public static void onEntitySpawn(EntityJoinWorldEvent event) {
-		// this is kinda hacky, but it's the cleanest way i can think of
-		if (isCancellingItemDrops && event.getEntity() instanceof EntityItem) {
-			// If the block we're wrapping drops something on being destroyed, we have to cancel it to avoid duping.
-			event.setCanceled(true);
-		}
 	}
 	
 	// ItemStack helpers

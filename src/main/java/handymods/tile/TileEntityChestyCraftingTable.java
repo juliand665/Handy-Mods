@@ -2,7 +2,8 @@ package handymods.tile;
 
 import net.minecraftforge.items.ItemStackHandler;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileEntityChestyCraftingTable extends ModContainerTileEntity {
 	private List<Listener> listeners = new ArrayList<>();

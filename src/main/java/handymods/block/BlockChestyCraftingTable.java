@@ -46,7 +46,7 @@ public class BlockChestyCraftingTable extends BlockWithTileEntity<TileEntityChes
 		setCreativeTab(CreativeTabHandyMods.instance);
 		
 		setDefaultState(blockState.getBaseState()
-				.withProperty(PROPERTY_FACING, EnumFacing.NORTH));
+			.withProperty(PROPERTY_FACING, EnumFacing.NORTH));
 	}
 	
 	@Override

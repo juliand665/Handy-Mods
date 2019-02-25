@@ -32,8 +32,8 @@ public class BlockItemHolder extends BlockWithTileEntity<TileEntityItemHolder> {
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return new AxisAlignedBB(
-				0.125f, 0.125f, 0.125f,
-				0.875f, 0.875f, 0.875f
+			0.125f, 0.125f, 0.125f,
+			0.875f, 0.875f, 0.875f
 		);
 	}
 	
@@ -55,11 +55,11 @@ public class BlockItemHolder extends BlockWithTileEntity<TileEntityItemHolder> {
 			boolean couldAdd = player.inventory.addItemStackToInventory(current);
 			if (!couldAdd) {
 				InventoryHelper.spawnItemStack(
-						world,
-						pos.getX() + hitX,
-						pos.getY() + hitY,
-						pos.getZ() + hitZ,
-						current
+					world,
+					pos.getX() + hitX,
+					pos.getY() + hitY,
+					pos.getZ() + hitZ,
+					current
 				);
 			}
 		}

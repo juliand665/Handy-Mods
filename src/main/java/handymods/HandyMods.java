@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 @Mod(modid = HandyMods.MOD_ID, version = "__VERSION__", useMetadata = true, dependencies = "after:theoneprobe")
@@ -18,7 +19,7 @@ public class HandyMods {
 	
 	@Mod.Instance
 	public static HandyMods instance;
-	public static Logger logger;
+	public static Logger logger = LogManager.getLogger();
 	
 	public static ResourceLocation resourceLocation(String path) {
 		return new ResourceLocation(MOD_ID, path);
@@ -30,7 +31,6 @@ public class HandyMods {
 	
 	@EventHandler
 	public void preInit(FMLPreInitializationEvent event) {
-		logger = event.getModLog();
 		CraftingTweaksCompatibility.setUp();
 	}
 	

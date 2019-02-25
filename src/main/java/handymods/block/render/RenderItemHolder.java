@@ -14,17 +14,17 @@ import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 public class RenderItemHolder extends TileEntitySpecialRenderer<TileEntityItemHolderRendered> {
 	@Override
 	public void render(TileEntityItemHolderRendered tileEntity, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-		ItemStack itemStack = tileEntity.getItemStack();
+		final ItemStack itemStack = tileEntity.getItemStack();
 		if (!itemStack.isEmpty()) {
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(x + 0.5d, y + 0.5d, z + 0.5d); // center
 			
 			final long cycleLength = 5000; // milliseconds
-			long phase = Minecraft.getSystemTime() % cycleLength;
-			float angle = 360f * phase / cycleLength; // yes, it's in degrees. yes, i checked. yes, i hate it.
+			final long phase = Minecraft.getSystemTime() % cycleLength;
+			final float angle = 360f * phase / cycleLength; // yes, it's in degrees. yes, i checked. yes, i hate it.
 			GlStateManager.rotate(angle, 0, 1, 0);
 			
-			double scale = 0.5d;
+			final double scale = 0.5d;
 			GlStateManager.scale(scale, scale, scale);
 			Minecraft.getMinecraft().getRenderItem().renderItem(itemStack, ItemCameraTransforms.TransformType.FIXED);
 			

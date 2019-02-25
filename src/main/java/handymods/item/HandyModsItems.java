@@ -26,6 +26,7 @@ public class HandyModsItems {
 	public static final ItemBlockWithTooltip itemHolderOpaque = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderOpaque));
 	public static final ItemBlockWithTooltip itemHolderTransparent = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.itemHolderTransparent));
 	public static final ItemBlockWithTooltip chestyCraftingTable = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.chestyCraftingTable));
+	public static final ItemBlock enderBoxer = itemBlock(new ItemBlockWithTooltip(HandyModsBlocks.enderBoxer));
 	
 	@SubscribeEvent
 	public static void registerItems(RegistryEvent.Register<Item> event) {

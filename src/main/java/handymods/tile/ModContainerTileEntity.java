@@ -30,11 +30,11 @@ public abstract class ModContainerTileEntity extends ModTileEntity {
 	public void dropContents() {
 		for (int i = 0; i < itemHandler.getSlots(); i++) {
 			InventoryHelper.spawnItemStack(
-					world,
-					(double) pos.getX(),
-					(double) pos.getY(),
-					(double) pos.getZ(),
-					itemHandler.getStackInSlot(i)
+				world,
+				(double) pos.getX(),
+				(double) pos.getY(),
+				(double) pos.getZ(),
+				itemHandler.getStackInSlot(i)
 			);
 		}
 	}

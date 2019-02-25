@@ -1,7 +1,9 @@
 package handymods.block;
 
 import handymods.HandyMods;
+import handymods.block.render.RenderEnderBox;
 import handymods.block.render.RenderItemHolder;
+import handymods.tile.TileEntityEnderBox;
 import handymods.tile.TileEntityItemHolderRendered;
 import net.minecraft.block.Block;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -25,6 +27,8 @@ public class HandyModsBlocks {
 	public static BlockItemHolder itemHolderOpaque = block(new BlockItemHolder(), "item_holder_opaque");
 	public static BlockItemHolderRendered itemHolderTransparent = block(new BlockItemHolderRendered(), "item_holder_transparent");
 	public static BlockChestyCraftingTable chestyCraftingTable = block(new BlockChestyCraftingTable(), "chesty_crafting_table");
+	public static BlockEnderBoxer enderBoxer = block(new BlockEnderBoxer(), "ender_boxer");
+	public static BlockEnderBoxed enderBoxed = block(new BlockEnderBoxed(), "ender_boxed");
 	
 	@SubscribeEvent
 	public static void registerBlocks(RegistryEvent.Register<Block> event) {
@@ -36,6 +40,7 @@ public class HandyModsBlocks {
 	@SideOnly(CLIENT)
 	public static void registerModels(@SuppressWarnings("unused") ModelRegistryEvent event) {
 		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemHolderRendered.class, new RenderItemHolder());
+		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnderBox.class, new RenderEnderBox());
 	}
 	
 	public static <B extends Block> B block(B block, String name) {

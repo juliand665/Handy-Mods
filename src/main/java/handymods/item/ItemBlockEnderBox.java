@@ -1,11 +1,9 @@
 package handymods.item;
 
-import handymods.HandyMods;
 import handymods.HandyModsConfig;
 import handymods.block.HandyModsBlocks;
+import handymods.tile.BlockData;
 import handymods.tile.TileEntityEnderBox;
-import handymods.tile.TileEntityEnderBox.BlockData;
-import handymods.util.SoundHelpers;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -20,7 +18,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 import static handymods.util.Localization.localized;
@@ -41,7 +38,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 		final String contentsDesc;
 		if (hasBlockData(itemStack)) {
 			final BlockData blockData = getBlockData(itemStack);
-			final Block block = blockData.block;
+			final Block block = blockData.getBlock();
 			if (flag.isAdvanced()) {
 				contentsDesc = localized("tooltip", this, "contains_block.advanced", block.getLocalizedName(), block.getRegistryName());
 			} else {
@@ -54,12 +51,12 @@ public class ItemBlockEnderBox extends ItemBlock {
 		tooltip.add(contentsDesc);
 	}
 	
-	private boolean canPickUp(IBlockState blockState) {
+	public static boolean canPickUp(IBlockState blockState) {
 		String registryName = blockState.getBlock().getRegistryName().toString();
 		return !isBlacklisted(registryName);
 	}
 	
-	private boolean isBlacklisted(String blockName) {
+	private static boolean isBlacklisted(String blockName) {
 		for (String glob : HandyModsConfig.enderBoxBlacklist) {
 			StringBuilder pattern = new StringBuilder(glob.length());
 			for (String part : glob.split("\\*", -1)) {
@@ -118,47 +115,13 @@ public class ItemBlockEnderBox extends ItemBlock {
 		if (hasBlockData(itemStack))
 			return EnumActionResult.PASS;
 		
-		final IBlockState state = world.getBlockState(pos);
-		final Block block = state.getBlock();
-		final int metadata = block.getMetaFromState(state);
+		final boolean success = HandyModsBlocks.enderBox.wrapBlock(world, pos, HandyModsBlocks.enderBox.getDefaultState());
 		
-		// only pick up valid blocks
-		if (world.isAirBlock(pos) || !canPickUp(state))
-			return EnumActionResult.PASS;
-		
-		if (world.isRemote) {
-			// on the client, just assume it worked and play the sound
-			SoundHelpers.playPlacementSound(player, pos, block);
-			return EnumActionResult.SUCCESS;
-		}
-		
-		// capture tile entity
-		final Optional<NBTTagCompound> tileEntityNBT = Optional
-				.ofNullable(world.getTileEntity(pos))
-				.map(prev -> prev.writeToNBT(new NBTTagCompound()));
-		
-		if (!player.capabilities.isCreativeMode) {
+		if (success && !player.capabilities.isCreativeMode) {
 			itemStack.shrink(1);
 		}
 		
-		// replace block
-		// We remove the tile entity before removing the block so the breakBlock() handler can't use it to drop items or cause flux etc.
-		world.removeTileEntity(pos);
-		final IBlockState newState = HandyModsBlocks.enderBox.getDefaultState();
-		// Since we removed the tile entity, we may be violating some assumptions, but that should only cause early exits from breakBlock(), which is called late enough that we don't break much.
-		try {
-			world.setBlockState(pos, newState, 0b00011);
-		} catch (Exception e) {
-			HandyMods.logger.debug("ender box placement ignoring the following exception:");
-			HandyMods.logger.debug(e);
-		}
-		
-		// store captured tile entity
-		final TileEntityEnderBox newTileEntity = HandyModsBlocks.enderBox.tileEntity(world, pos);
-		assert newTileEntity != null;
-		newTileEntity.storedBlock = new BlockData(block, metadata, tileEntityNBT);
-		
-		return EnumActionResult.SUCCESS;
+		return success ? EnumActionResult.SUCCESS : EnumActionResult.PASS;
 	}
 	
 	// ItemStack helpers

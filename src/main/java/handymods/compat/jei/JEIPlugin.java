@@ -10,10 +10,10 @@ public class JEIPlugin implements IModPlugin {
 	@Override
 	public void register(IModRegistry registry) {
 		registry.getRecipeTransferRegistry().addRecipeTransferHandler(
-				ContainerChestyCraftingTable.class,
-				VanillaRecipeCategoryUid.CRAFTING,
-				1, 9,
-				10, 36
+			ContainerChestyCraftingTable.class,
+			VanillaRecipeCategoryUid.CRAFTING,
+			1, 9,
+			10, 36
 		);
 	}
 }

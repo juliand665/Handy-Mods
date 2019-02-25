@@ -1,0 +1,11 @@
+{
+	"forge_marker": 1,
+    "variants": {
+        "facing=up": { "model": "handymods:ender_boxer", "x": 270 },
+        "facing=down": { "model": "handymods:ender_boxer", "x": 90 },
+        "facing=north": { "model": "handymods:ender_boxer" },
+        "facing=south": { "model": "handymods:ender_boxer", "y": 180 },
+        "facing=west": { "model": "handymods:ender_boxer", "y": 270 },
+        "facing=east": { "model": "handymods:ender_boxer", "y": 90 }
+    }
+}

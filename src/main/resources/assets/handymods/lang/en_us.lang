@@ -10,6 +10,7 @@ tile.handymods.ender_boxer.name=Ender Boxer
 tile.handymods.ender_boxed.name=Ender Boxed
 
 // Tooltips
+tooltip.handymods.ender_box.default=Can be placed around blocks to move them around without breaking them, allowing you to e.g. move chests around easily.
 tooltip.handymods.ender_box.empty=Empty
 tooltip.handymods.ender_box.contains_block=Contains %s
 tooltip.handymods.ender_box.contains_block.advanced=Contains %s (%s)

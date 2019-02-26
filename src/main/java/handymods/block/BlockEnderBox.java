@@ -104,15 +104,11 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 		final Block targetBlock = targetState.getBlock();
 		final int targetMetadata = targetBlock.getMetaFromState(targetState);
 		
-		System.out.println("wrapping");
-		
 		if (!ItemBlockEnderBox.canPickUp(targetState)) return false;
 		
-		if (world.isRemote) {
-			// on the client, just assume it worked and play the sound
-			SoundHelpers.playPlacementSound(world, targetPos, this);
-			return true;
-		}
+		SoundHelpers.playPlacementSound(world, targetPos, this);
+		
+		if (world.isRemote) return true;
 		
 		// capture tile entity
 		final Optional<NBTTagCompound> targetTileEntityNBT = Optional
@@ -142,12 +138,9 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 		final TileEntityEnderBox tileEntity = tileEntity(world, targetPos);
 		final BlockData blockData = tileEntity.storedBlock;
 		
-		System.out.println("unwrapping");
+		SoundHelpers.playPlacementSound(world, targetPos, this);
 		
-		if (world.isRemote) {
-			SoundHelpers.playPlacementSound(world, targetPos, this);
-			return blockData;
-		}
+		if (world.isRemote) return blockData;
 		
 		world.setBlockState(targetPos, newState.apply(blockData), 0b11);
 		

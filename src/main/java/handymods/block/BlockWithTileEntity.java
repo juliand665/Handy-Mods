@@ -31,7 +31,10 @@ public abstract class BlockWithTileEntity<TE extends TileEntity> extends Block {
 	
 	public abstract TE newTileEntity(IBlockAccess world, IBlockState state);
 	
+	@SuppressWarnings("unchecked")
 	public final TE tileEntity(IBlockAccess world, BlockPos pos) {
-		return (TE) world.getTileEntity(pos);
+		TE tileEntity = (TE) world.getTileEntity(pos);
+		assert tileEntity != null;
+		return tileEntity;
 	}
 }

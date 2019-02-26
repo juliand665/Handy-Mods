@@ -30,6 +30,7 @@ public class BlockEnderBoxer extends BlockDirectional {
 	}
 	
 	@Override
+	@Deprecated
 	public IBlockState getStateFromMeta(int meta) {
 		return getDefaultState().withProperty(FACING, EnumFacing.byIndex(meta));
 	}
@@ -44,10 +45,12 @@ public class BlockEnderBoxer extends BlockDirectional {
 		return getDefaultState().withProperty(FACING, EnumFacing.getDirectionFromEntityLiving(pos, placer));
 	}
 	
+	@Deprecated
 	public IBlockState withRotation(IBlockState state, Rotation rotation) {
 		return state.withProperty(FACING, rotation.rotate(state.getValue(FACING)));
 	}
 	
+	@Deprecated
 	public IBlockState withMirror(IBlockState state, Mirror mirror) {
 		return state.withProperty(FACING, mirror.mirror(state.getValue(FACING)));
 	}
@@ -67,6 +70,7 @@ public class BlockEnderBoxer extends BlockDirectional {
 	}
 	
 	@Override
+	@Deprecated
 	public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos fromPos) {
 		super.neighborChanged(state, world, pos, block, fromPos);
 		

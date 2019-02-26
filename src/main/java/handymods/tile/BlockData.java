@@ -83,6 +83,7 @@ public final class BlockData extends NBTCodable {
 		container.setInteger("z", position.getZ());
 	}
 	
+	@SuppressWarnings("deprecation")
 	public ItemStack getPickedBlock(World world, BlockPos pos, @Nullable RayTraceResult target, @Nullable EntityPlayer player) {
 		try {
 			// try to simulate picking the block
@@ -122,6 +123,7 @@ public final class BlockData extends NBTCodable {
 		return tileEntityNBT;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public IBlockState getStoredState() {
 		return block.getStateFromMeta(metadata);
 	}

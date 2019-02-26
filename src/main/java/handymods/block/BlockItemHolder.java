@@ -30,6 +30,7 @@ public class BlockItemHolder extends BlockWithTileEntity<TileEntityItemHolder> {
 	}
 	
 	@Override
+	@Deprecated
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return new AxisAlignedBB(
 			0.125f, 0.125f, 0.125f,
@@ -67,11 +68,13 @@ public class BlockItemHolder extends BlockWithTileEntity<TileEntityItemHolder> {
 	}
 	
 	@Override
+	@Deprecated
 	public boolean hasComparatorInputOverride(IBlockState state) {
 		return true;
 	}
 	
 	@Override
+	@Deprecated
 	public int getComparatorInputOverride(IBlockState blockState, World world, BlockPos pos) {
 		TileEntityItemHolder tileEntity = tileEntity(world, pos);
 		return tileEntity.getItemStack().isEmpty() ? 0 : 15;
@@ -85,11 +88,13 @@ public class BlockItemHolder extends BlockWithTileEntity<TileEntityItemHolder> {
 	}
 	
 	@Override
+	@Deprecated
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 	
 	@Override
+	@Deprecated
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}

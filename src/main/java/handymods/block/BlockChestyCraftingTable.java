@@ -71,12 +71,14 @@ public class BlockChestyCraftingTable extends BlockWithTileEntity<TileEntityChes
 	}
 	
 	@Override
+	@Deprecated
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
 	
 	@Nullable
 	@Override
+	@Deprecated
 	public RayTraceResult collisionRayTrace(IBlockState blockState, World worldIn, BlockPos pos, Vec3d start, Vec3d end) {
 		// necessary? no. fancy? hell yes.
 		for (AxisAlignedBB box : bounds) {
@@ -106,18 +108,21 @@ public class BlockChestyCraftingTable extends BlockWithTileEntity<TileEntityChes
 	}
 	
 	@Override
+	@Deprecated
 	public IBlockState getStateFromMeta(int meta) {
 		EnumFacing facing = EnumFacing.byHorizontalIndex(meta);
 		return getDefaultState().withProperty(PROPERTY_FACING, facing);
 	}
 	
 	@Override
+	@Deprecated
 	public IBlockState withRotation(IBlockState state, Rotation rotation) {
 		EnumFacing facing = state.getValue(PROPERTY_FACING);
 		return state.withProperty(PROPERTY_FACING, rotation.rotate(facing));
 	}
 	
 	@Override
+	@Deprecated
 	public IBlockState withMirror(IBlockState state, Mirror mirror) {
 		EnumFacing facing = state.getValue(PROPERTY_FACING);
 		return state.withProperty(PROPERTY_FACING, mirror.mirror(facing));

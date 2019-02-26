@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -35,6 +36,8 @@ public class ItemBlockEnderBox extends ItemBlock {
 	public void addInformation(ItemStack itemStack, @Nullable World world, List<String> tooltip, ITooltipFlag flag) {
 		super.addInformation(itemStack, world, tooltip, flag);
 		
+		tooltip.add(localized("tooltip", this, "default"));
+		
 		final String contentsDesc;
 		if (hasBlockData(itemStack)) {
 			final BlockData blockData = getBlockData(itemStack);
@@ -48,7 +51,7 @@ public class ItemBlockEnderBox extends ItemBlock {
 			contentsDesc = localized("tooltip", this, "empty");
 		}
 		
-		tooltip.add(contentsDesc);
+		tooltip.add(TextFormatting.YELLOW + contentsDesc);
 	}
 	
 	public static boolean canPickUp(IBlockState blockState) {

@@ -37,11 +37,13 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 	}
 	
 	@Override
+	@Deprecated
 	public boolean isFullCube(IBlockState state) {
 		return false;
 	}
 	
 	@Override
+	@Deprecated
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
 	}
@@ -52,7 +54,8 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 	}
 	
 	@SideOnly(Side.CLIENT)
-	public BlockRenderLayer getBlockLayer() {
+	@Override
+	public BlockRenderLayer getRenderLayer() {
 		return HandyModsConfig.renderEnderBoxContents ? BlockRenderLayer.TRANSLUCENT : BlockRenderLayer.SOLID;
 	}
 	

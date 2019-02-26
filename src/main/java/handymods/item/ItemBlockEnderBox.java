@@ -52,8 +52,9 @@ public class ItemBlockEnderBox extends ItemBlock {
 	}
 	
 	public static boolean canPickUp(IBlockState blockState) {
-		String registryName = blockState.getBlock().getRegistryName().toString();
-		return !isBlacklisted(registryName);
+		ResourceLocation registryName = blockState.getBlock().getRegistryName();
+		assert registryName != null;
+		return !isBlacklisted(registryName.toString());
 	}
 	
 	private static boolean isBlacklisted(String blockName) {

@@ -12,7 +12,7 @@ public class CreativeTabHandyMods extends CreativeTabs {
 	}
 	
 	@Override
-	public ItemStack getTabIconItem() {
+	public ItemStack createIcon() {
 		return new ItemStack(HandyModsBlocks.enderBox);
 	}
 }

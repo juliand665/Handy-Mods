@@ -47,7 +47,7 @@ public class HandyModsItems {
 		ResourceLocation registryName = item.getBlock().getRegistryName();
 		assert registryName != null;
 		item.setRegistryName(registryName);
-		item.setUnlocalizedName(item.getBlock().getUnlocalizedName());
+		item.setTranslationKey(item.getBlock().getTranslationKey());
 		ITEMS.add(item);
 		return item;
 	}

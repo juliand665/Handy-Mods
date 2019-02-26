@@ -45,7 +45,7 @@ public class HandyModsBlocks {
 	
 	public static <B extends Block> B block(B block, String name) {
 		block.setRegistryName(HandyMods.resourceLocation(name));
-		block.setUnlocalizedName(HandyMods.namespaced(name));
+		block.setTranslationKey(HandyMods.namespaced(name));
 		BLOCKS.add(block);
 		return block;
 	}

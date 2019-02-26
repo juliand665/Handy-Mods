@@ -95,7 +95,7 @@ public class BlockItemHolder extends BlockWithTileEntity<TileEntityItemHolder> {
 	}
 	
 	@Override
-	public BlockRenderLayer getBlockLayer() {
+	public BlockRenderLayer getRenderLayer() {
 		return BlockRenderLayer.CUTOUT; // for transparency
 	}
 }

@@ -107,7 +107,7 @@ public class BlockChestyCraftingTable extends BlockWithTileEntity<TileEntityChes
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		EnumFacing facing = EnumFacing.getHorizontal(meta);
+		EnumFacing facing = EnumFacing.byHorizontalIndex(meta);
 		return getDefaultState().withProperty(PROPERTY_FACING, facing);
 	}
 	

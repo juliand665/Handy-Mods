@@ -1,0 +1,22 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"P": {
+			"item": "minecraft:piston"
+		},
+		"X": {
+			"item": "handymods:ender_box"
+		},
+		"#": {
+			"item": "minecraft:cobblestone"
+		}
+	},
+	"pattern": [
+		"#X#",
+		"#P#",
+		"###"
+	],
+	"result": {
+		"item": "handymods:ender_boxer"
+	}
+}

@@ -1,6 +1,7 @@
 package handymods.item;
 
 import handymods.block.HandyModsBlocks;
+import handymods.client.render.RenderEnderBoxItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -60,5 +61,7 @@ public class HandyModsItems {
 			assert registryName != null;
 			ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(registryName, "inventory"));
 		});
+		
+		enderBox.setTileEntityItemStackRenderer(new RenderEnderBoxItem());
 	}
 }

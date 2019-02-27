@@ -1,8 +1,8 @@
 package handymods.block;
 
 import handymods.HandyMods;
-import handymods.block.render.RenderEnderBox;
-import handymods.block.render.RenderItemHolder;
+import handymods.client.render.RenderEnderBox;
+import handymods.client.render.RenderItemHolder;
 import handymods.tile.TileEntityEnderBox;
 import handymods.tile.TileEntityItemHolderRendered;
 import net.minecraft.block.Block;

@@ -1,6 +1,6 @@
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-package handymods.block.render;
+package handymods.client.render;
 
 import mcp.MethodsReturnNonnullByDefault;
 

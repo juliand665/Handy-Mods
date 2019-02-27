@@ -1,4 +1,4 @@
-package handymods.block.render;
+package handymods.client.render;
 
 import handymods.tile.BlockData;
 import handymods.tile.TileEntityEnderBox;

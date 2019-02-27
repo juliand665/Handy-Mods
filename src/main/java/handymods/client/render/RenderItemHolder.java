@@ -1,4 +1,4 @@
-package handymods.block.render;
+package handymods.client.render;
 
 import handymods.tile.TileEntityItemHolderRendered;
 import net.minecraft.client.Minecraft;

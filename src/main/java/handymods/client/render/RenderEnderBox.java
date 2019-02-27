@@ -35,34 +35,5 @@ public class RenderEnderBox extends TileEntitySpecialRenderer<TileEntityEnderBox
 		Minecraft.getMinecraft().getRenderItem().renderItem(blockStack, ItemCameraTransforms.TransformType.FIXED);
 		
 		GlStateManager.popMatrix();
-		
-		
-		
-		/*
-		BlockRendererDispatcher blockDispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
-		TileEntityRendererDispatcher teDispatcher = TileEntityRendererDispatcher.instance;
-		
-		GlStateManager.pushMatrix();
-		GlStateManager.translate(x, y, z);
-		//GlStateManager.translate(x - pos.getX(), y - pos.getY(), z - pos.getZ()); // adjust for blockpos's integerness
-		try {
-			// oh no
-			// this seems to be the only way to access the relevant tesselator
-			Class dispatcherClass = teDispatcher.getClass();
-			Field batchBufferField = dispatcherClass.getDeclaredField("batchBuffer");
-			batchBufferField.setAccessible(true);
-			Tessellator tessellator = (Tessellator) batchBufferField.get(teDispatcher);
-			
-			blockDispatcher.renderBlockBrightness(state, 1f);
-			//blockDispatcher.renderBlock(state, pos, tileEntity.getWorld(), tessellator.getBuffer());
-		} catch (ReportedException e) {
-			System.out.println("caught reported exception:");
-			e.getCrashReport().getCrashCause().printStackTrace();
-		} catch (Exception e) {
-			System.out.println("caught other exception:");
-			e.printStackTrace();
-		}
-		GlStateManager.popMatrix();
-		*/
 	}
 }

@@ -1,6 +1,6 @@
 package handymods.item;
 
-import handymods.HandyModsConfig;
+import handymods.block.BlockEnderBox;
 import handymods.block.HandyModsBlocks;
 import handymods.tile.BlockData;
 import handymods.tile.TileEntityEnderBox;
@@ -19,7 +19,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import static handymods.util.Localization.localized;
 import static net.minecraftforge.fml.relauncher.Side.CLIENT;
@@ -54,39 +53,13 @@ public class ItemBlockEnderBox extends ItemBlock {
 		tooltip.add(TextFormatting.YELLOW + contentsDesc);
 	}
 	
-	public static boolean canPickUp(IBlockState blockState) {
-		ResourceLocation registryName = blockState.getBlock().getRegistryName();
-		assert registryName != null;
-		return !isBlacklisted(registryName.toString());
-	}
-	
-	private static boolean isBlacklisted(String blockName) {
-		for (String glob : HandyModsConfig.enderBoxBlacklist) {
-			StringBuilder pattern = new StringBuilder(glob.length());
-			for (String part : glob.split("\\*", -1)) {
-				if (!part.isEmpty()) { // not necessary
-					pattern.append(Pattern.quote(part));
-				}
-				pattern.append(".*");
-			}
-			
-			// delete last ".*" wildcard
-			pattern.delete(pattern.length() - 2, pattern.length());
-			
-			if (Pattern.matches(pattern.toString(), blockName)) {
-				return true;
-			}
-		}
-		return false;
-	}
-	
 	@Override
 	@SideOnly(CLIENT)
 	public boolean canPlaceBlockOnSide(World world, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
 		if (hasBlockData(stack)) {
 			return super.canPlaceBlockOnSide(world, pos, side, player, stack);
 		} else {
-			return canPickUp(world.getBlockState(pos));
+			return BlockEnderBox.canPickUp(world, pos);
 		}
 	}
 	

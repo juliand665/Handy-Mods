@@ -13,7 +13,6 @@ public class HandyModsConfig {
 	@Config.Name("Ender Box Blacklist")
 	@Config.Comment("A list of blocks that can't be picked up with the ender box.")
 	public static String[] enderBoxBlacklist = {
-		"minecraft:bedrock",
 		"handymods:ender_box",
 		"handymods:ender_boxed"
 	};

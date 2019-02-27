@@ -25,6 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.regex.Pattern;
 
 public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> implements IProbeInfoAccessor {
 	public BlockEnderBox() {
@@ -107,7 +108,7 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 		final Block targetBlock = targetState.getBlock();
 		final int targetMetadata = targetBlock.getMetaFromState(targetState);
 		
-		if (!ItemBlockEnderBox.canPickUp(targetState)) return false;
+		if (!canPickUp(world, targetPos)) return false;
 		
 		SoundHelpers.playPlacementSound(world, targetPos, this);
 		
@@ -153,6 +154,35 @@ public class BlockEnderBox extends BlockWithTileEntity<TileEntityEnderBox> imple
 		world.scheduleUpdate(targetPos, blockData.getBlock(), 0); // e.g. makes sugar cane pop off if placed invalidly, but unfortunately doesn't affect cactus
 		
 		return blockData;
+	}
+	
+	public static boolean canPickUp(World world, BlockPos pos) {
+		IBlockState blockState = world.getBlockState(pos);
+		if (blockState.getBlockHardness(world, pos) < 0) return false; // unbreakable
+		
+		ResourceLocation registryName = blockState.getBlock().getRegistryName();
+		assert registryName != null;
+		return !isBlacklisted(registryName.toString());
+	}
+	
+	private static boolean isBlacklisted(String blockName) {
+		for (String glob : HandyModsConfig.enderBoxBlacklist) {
+			StringBuilder pattern = new StringBuilder(glob.length());
+			for (String part : glob.split("\\*", -1)) {
+				if (!part.isEmpty()) { // not necessary
+					pattern.append(Pattern.quote(part));
+				}
+				pattern.append(".*");
+			}
+			
+			// delete last ".*" wildcard
+			pattern.delete(pattern.length() - 2, pattern.length());
+			
+			if (Pattern.matches(pattern.toString(), blockName)) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	// drop handling

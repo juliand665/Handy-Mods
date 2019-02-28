@@ -1,5 +1,6 @@
 package handymods.item;
 
+import handymods.HandyMods;
 import handymods.block.HandyModsBlocks;
 import handymods.client.render.RenderEnderBoxItem;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = HandyMods.MOD_ID)
 public class HandyModsItems {
 	private static final List<Item> ITEMS = new ArrayList<>(); // has to be on top so it's loaded first
 	

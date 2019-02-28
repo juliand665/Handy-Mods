@@ -7,7 +7,7 @@ import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = HandyMods.MOD_ID)
 @Config(modid = HandyMods.MOD_ID)
 public class HandyModsConfig {
 	@Config.Name("Ender Box Blacklist")

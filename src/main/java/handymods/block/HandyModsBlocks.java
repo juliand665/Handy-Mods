@@ -19,7 +19,7 @@ import java.util.List;
 
 import static net.minecraftforge.fml.relauncher.Side.CLIENT;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = HandyMods.MOD_ID)
 public class HandyModsBlocks {
 	private static final List<Block> BLOCKS = new ArrayList<>(); // has to be on top so it's loaded first
 	

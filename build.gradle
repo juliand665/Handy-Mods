@@ -22,7 +22,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
+    version = "${mc_version}-${forge_version}"
     runDir = "run"
     mappings = "stable_39"
     makeObfSourceJar = false

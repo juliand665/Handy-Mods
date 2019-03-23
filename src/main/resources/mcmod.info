@@ -2,14 +2,14 @@
 {
   "modid": "handymods",
   "name": "Handy Mods",
-  "description": "A bunch of little things.",
+  "description": "A small mod that aims to extract handy features from giant mods so you can shave down your mod list, loading times, and JEI pages.",
   "version": "${version}",
   "mcversion": "${mcversion}",
-  "url": "",
+  "url": "https://minecraft.curseforge.com/projects/handy-mods",
   "updateUrl": "",
   "authorList": ["juliand665"],
   "credits": "Mekanism & Tinkers Construct for the ideas, and the MMD discord server for all the help :)",
-  "logoFile": "",
+  "logoFile": "assets/handymods/textures/forge/logo.png",
   "screenshots": [],
   "dependencies": []
 }

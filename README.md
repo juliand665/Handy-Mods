@@ -6,9 +6,9 @@
 
 A small mod that aims to extract handy features from giant mods so you can shave down your mod list, loading times, and JEI pages.
 
-Download in [the releases section](https://github.com/juliand665/Handy-Mods/releases) or on [CurseForge](https://minecraft.curseforge.com/projects/handy-mods).
+Download in [the Releases section](https://github.com/juliand665/Handy-Mods/releases) or on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/handy-mods).
 
-Check out [the Images section on CurseForge](https://minecraft.curseforge.com/projects/handy-mods/images) for more details!
+Check out [the Images section on CurseForge](https://www.curseforge.com/minecraft/mc-mods/handy-mods/screenshots) for more details!
 
 ### Current features:
 

@@ -11,6 +11,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -36,17 +37,20 @@ public class HandyModsBlocks {
 		BLOCKS.forEach(registry::register);
 	}
 	
-	@SubscribeEvent
-	@SideOnly(CLIENT)
-	public static void registerModels(@SuppressWarnings("unused") ModelRegistryEvent event) {
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemHolderRendered.class, new RenderItemHolder());
-		ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnderBox.class, new RenderEnderBox());
-	}
-	
 	public static <B extends Block> B block(B block, String name) {
 		block.setRegistryName(HandyMods.resourceLocation(name));
 		block.setTranslationKey(HandyMods.namespaced(name));
 		BLOCKS.add(block);
 		return block;
+	}
+	
+	@SideOnly(CLIENT)
+	@Mod.EventBusSubscriber(modid = HandyMods.MOD_ID, value = Side.CLIENT)
+	private static class Client {
+		@SubscribeEvent
+		private static void registerModels(@SuppressWarnings("unused") ModelRegistryEvent event) {
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityItemHolderRendered.class, new RenderItemHolder());
+			ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnderBox.class, new RenderEnderBox());
+		}
 	}
 }
